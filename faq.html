@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - MTRL МУИС</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+        .faq-question {
+            font-weight: 600;
+            color: var(--primary-blue);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            margin-top: 10px;
+            color: var(--text-muted);
+            display: none;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="https://set.num.edu.mn/wp-content/themes/num-set/assets/images/logo.png" alt="NUM SET Logo">
+                <div class="logo-text">
+                    <h1>Материал судлал, инженерчлэл</h1>
+                    <p>Materials Science and Engineering</p>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Нүүр</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header" style="background: var(--dark-blue); color: white; padding: 40px 0;">
+            <div class="container">
+                <h1>Түгээмэл асуултууд</h1>
+            </div>
+        </section>
+
+        <section id="faq-list">
+            <div class="container">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="faq-item">
+                        <div class="faq-question">MTRL гэж ямар мэргэжил вэ? <i data-lucide="chevron-down"></i></div>
+                        <div class="faq-answer">Энэ нь материалын бүтэц, шинж чанарыг судалж, шинэ дэвшилтэт материал гарган авах, үйлдвэрлэлийн процесс зохион бүтээх инженерийн салбар юм.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Энэ хөтөлбөрөөр төгсөөд хаана ажиллах вэ? <i data-lucide="chevron-down"></i></div>
+                        <div class="faq-answer">Уул уурхай, барилга, эрчим хүч, химийн үйлдвэр болон судалгааны хүрээлэнгүүдэд инженер, шинжээчээр ажиллах боломжтой.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Хөтөлбөр хиймэл оюунтай яаж холбогдох вэ? <i data-lucide="chevron-down"></i></div>
+                        <div class="faq-answer">Бид Materials Informatics буюу өгөгдөлд суурилсан материалыг судлах, машин сургалтаар шинж чанарыг таамаглах чиглэлийг сургалтад нэгтгэж байна.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Элсэлтийн босго оноо хэд вэ? <i data-lucide="chevron-down"></i></div>
+                        <div class="faq-answer">Сүүлийн жилүүдийн байдлаар ЭЕШ-ын босго оноо 480 байна.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                q.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

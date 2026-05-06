@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTRL AI туслах - MTRL МУИС</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+        .chat-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background: var(--light-bg);
+            color: var(--text-main);
+            border-bottom-left-radius: 2px;
+        }
+        .user-message {
+            align-self: flex-end;
+            background: var(--primary-blue);
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            outline: none;
+        }
+        .chat-input:focus {
+            border-color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="https://set.num.edu.mn/wp-content/themes/num-set/assets/images/logo.png" alt="NUM SET Logo">
+                <div class="logo-text">
+                    <h1>Материал судлал, инженерчлэл</h1>
+                    <p>Materials Science and Engineering</p>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Нүүр</a></li>
+                <li><a href="about.html">Хөтөлбөр</a></li>
+                <li><a href="curriculum.html">Сургалт</a></li>
+                <li><a href="chatbot.html">AI туслах</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <i data-lucide="bot"></i>
+                    <div>
+                        <h4 style="margin: 0;">MTRL AI туслах</h4>
+                        <p style="font-size: 0.7rem; margin: 0; opacity: 0.8;">Албан ёсны мэдээллийн туслах</p>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chat_messages">
+                    <div class="message bot-message">
+                        Сайн байна уу? Би MTRL хөтөлбөрийн AI туслах байна. Та хөтөлбөр, элсэлт, сургалтын төлөвлөгөөний талаар асуух зүйл байна уу?
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="chat_input" placeholder="Асуултаа энд бичнэ үү...">
+                    <button class="btn btn-primary" id="send_btn"><i data-lucide="send"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const messagesContainer = document.getElementById('chat_messages');
+        const chatInput = document.getElementById('chat_input');
+        const sendBtn = document.getElementById('send_btn');
+
+        function addMessage(text, isUser = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            msgDiv.textContent = text;
+            messagesContainer.appendChild(msgDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function handleSend() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, true);
+            chatInput.value = '';
+
+            // Simulate loading
+            const loadingMsg = document.createElement('div');
+            loadingMsg.className = 'message bot-message';
+            loadingMsg.textContent = '...';
+            messagesContainer.appendChild(loadingMsg);
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+                
+                const data = await response.json();
+                messagesContainer.removeChild(loadingMsg);
+                addMessage(data.reply);
+            } catch (err) {
+                messagesContainer.removeChild(loadingMsg);
+                addMessage('Уучлаарай, системд алдаа гарлаа. Та дараа дахин оролдоно уу.');
+            }
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+    </script>
+</body>
+</html>

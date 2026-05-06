@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // SHARED HELPERS
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isSignedIn() { return request.auth != null; }
+    function isVerified() { return isSignedIn() && request.auth.token.email_verified == true; }
+    function isAdmin() { return isVerified() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+
+    // COLLECTIONS
+    
+    // Admin list setup
+    match /admins/{userId} {
+      allow read: if isSignedIn();
+      allow write: if false; // Only manageable via Firebase Console or special script
+    }
+
+    // Program Info - Public Read, Admin Write
+    match /programInfo/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // News - Public Read if Published, Admin Write
+    match /news/{newsId} {
+      allow get: if existing().isPublished == true || isAdmin();
+      allow list: if resource.data.isPublished == true || isAdmin();
+      allow create: if isAdmin() && isValidNews(incoming());
+      allow update: if isAdmin() && isValidNews(incoming()) 
+                     && (incoming().diff(existing()).affectedKeys().hasOnly(['title', 'content', 'summary', 'imageUrl', 'category', 'isPublished', 'updatedAt']));
+      allow delete: if isAdmin();
+
+      function isValidNews(data) {
+        return data.title is string && data.title.size() <= 500
+               && data.content is string && data.content.size() <= 64000
+               && data.isPublished is bool;
+      }
+    }
+
+    // Faculty - Public Read, Admin Write
+    match /faculty/{facultyId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Courses - Public Read, Admin Write
+    match /courses/{courseId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Labs - Public Read, Admin Write
+    match /labs/{labId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // FAQ - Public Read, Admin Write
+    match /faq/{faqId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidFaq(incoming());
+
+      function isValidFaq(data) {
+        return data.question is string && data.question.size() <= 1000
+               && data.answer is string && data.answer.size() <= 5000;
+      }
+    }
+
+    // Chatbot Knowledge - Public Read (for Assistant logic), Admin Write
+    match /chatbotKnowledge/{docId} {
+      allow read: if true; // In real production, this might be restricted to a specific server UID or signed-in users
+      allow write: if isAdmin() && isValidKnowledge(incoming());
+
+      function isValidKnowledge(data) {
+        return data.content is string && data.content.size() <= 10000;
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ хяналтын самбар - MTRL МУИС</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-sidebar {
+            width: 250px;
+            background: var(--dark-blue);
+            color: white;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .admin-layout {
+            display: flex;
+        }
+        .admin-main {
+            flex: 1;
+            padding: 40px;
+            background: #f4f6f9;
+        }
+        .sidebar-links li {
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .sidebar-links li:hover, .sidebar-links li.active {
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div style="padding: 0 25px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <h3>MTRL Админ</h3>
+            </div>
+            <ul class="sidebar-links" style="margin-top: 20px;">
+                <li class="active">Хяналтын самбар</li>
+                <li>Мэдээ засах</li>
+                <li>Багш нар</li>
+                <li>Сургалтын төлөвлөгөө</li>
+                <li>Лаборатори</li>
+                <li>Chatbot мэдлэгийн сан</li>
+                <li>Тохиргоо</li>
+            </ul>
+        </aside>
+        
+        <main class="admin-main">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2>Системийн төлөв</h2>
+                <button class="btn btn-primary">Гарах</button>
+            </div>
+
+            <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="card p-20">
+                    <p class="text-muted">Нийт мэдээ</p>
+                    <h2 style="color: var(--primary-blue);">12</h2>
+                </div>
+                <div class="card p-20">
+                    <p class="text-muted">Багш нар</p>
+                    <h2 style="color: var(--primary-blue);">8</h2>
+                </div>
+                <div class="card p-20">
+                    <p class="text-muted">Курс/Хичээл</p>
+                    <h2 style="color: var(--primary-blue);">34</h2>
+                </div>
+                <div class="card p-20">
+                    <p class="text-muted">QA Мэдлэг</p>
+                    <h2 style="color: var(--primary-blue);">156</h2>
+                </div>
+            </div>
+
+            <div class="card p-20" style="margin-top: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Сүүлийн мэдээүүд</h3>
+                    <button class="btn btn-primary" style="padding: 5px 15px; font-size: 0.8rem;">Шинэ мэдээ нэмэх</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Гарчиг</th>
+                            <th>Төрөл</th>
+                            <th>Огноо</th>
+                            <th>Төлөв</th>
+                            <th>Үйлдэл</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2026-2027 оны бакалаврын элсэлт эхэллээ</td>
+                            <td>Элсэлт</td>
+                            <td>2026.05.01</td>
+                            <td><span style="color: green;">Нийтлэгдсэн</span></td>
+                            <td>Засах | Устгах</td>
+                        </tr>
+                        <tr>
+                            <td>Шинэ төрлийн нано материал гарган авав</td>
+                            <td>Судалгаа</td>
+                            <td>2026.04.15</td>
+                            <td><span style="color: green;">Нийтлэгдсэн</span></td>
+                            <td>Засах | Устгах</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card p-20" style="margin-top: 30px;">
+                <h3>Chatbot Мэдлэгийн сан (Google Drive Sync)</h3>
+                <p class="text-muted">Google Drive-аас мэдээллийг синхрончлох боломжтой.</p>
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-secondary" style="border-color: var(--primary-blue); color: var(--primary-blue);">Сүүлчийн синхрончлол: 2026.05.05 14:30</button>
+                    <button class="btn btn-primary" style="margin-left: 10px;">Одоо синхрончлох</button>
+                </div>
+                <div style="margin-top: 20px;">
+                    <textarea class="chat-input" style="width: 100%; height: 200px; margin-bottom: 10px;" placeholder="Эсвэл энд мэдээллээ гараар нэмнэ үү..."></textarea>
+                    <button class="btn btn-primary">Мэдлэгийн сан шинэчлэх</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

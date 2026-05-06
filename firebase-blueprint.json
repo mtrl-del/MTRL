@@ -1,0 +1,142 @@
+{
+  "entities": {
+    "programInfo": {
+      "title": "Program Information",
+      "description": "General information about the MTRL programme",
+      "type": "object",
+      "properties": {
+        "nameMn": { "type": "string" },
+        "nameEn": { "type": "string" },
+        "code": { "type": "string" },
+        "degree": { "type": "string" },
+        "duration": { "type": "string" },
+        "credits": { "type": "number" },
+        "school": { "type": "string" },
+        "department": { "type": "string" },
+        "language": { "type": "string" },
+        "vision": { "type": "string" },
+        "mission": { "type": "string" },
+        "history": { "type": "string" },
+        "importance": { "type": "string" }
+      }
+    },
+    "course": {
+      "title": "Course",
+      "description": "A single course in the curriculum",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "titleMn": { "type": "string" },
+        "titleEn": { "type": "string" },
+        "credit": { "type": "number" },
+        "semester": { "type": "number" },
+        "year": { "type": "number" },
+        "description": { "type": "string" },
+        "outcomes": { "type": "string" },
+        "category": { "type": "string", "enum": ["foundation", "major_required", "major_elective", "free_elective"] },
+        "isPublished": { "type": "boolean" }
+      },
+      "required": ["code", "titleMn", "credit"]
+    },
+    "faculty": {
+      "title": "Faculty Member",
+      "description": "A professor or lecturer in the programme",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "title": { "type": "string" },
+        "degree": { "type": "string" },
+        "researchArea": { "type": "string" },
+        "courses": { "type": "string" },
+        "email": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "order": { "type": "number" },
+        "isPublished": { "type": "boolean" }
+      },
+      "required": ["name", "email"]
+    },
+    "lab": {
+      "title": "Laboratory",
+      "description": "Research or teaching laboratory",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "purpose": { "type": "string" },
+        "equipment": { "type": "string" },
+        "relatedCourses": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "isPublished": { "type": "boolean" }
+      }
+    },
+    "news": {
+      "title": "News Item",
+      "description": "Announcement or news article",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "category": { "type": "string" },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "isPublished": { "type": "boolean" }
+      }
+    },
+    "faq": {
+      "title": "FAQ Item",
+      "description": "Frequently asked question",
+      "type": "object",
+      "properties": {
+        "question": { "type": "string" },
+        "answer": { "type": "string" },
+        "order": { "type": "number" },
+        "isPublished": { "type": "boolean" }
+      }
+    },
+    "chatbotKnowledge": {
+      "title": "Chatbot Knowledge Chunk",
+      "description": "A chunk of text used by the chatbot for RAG",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "sourceFileName": { "type": "string" },
+        "sourceType": { "type": "string" },
+        "content": { "type": "string" },
+        "tags": { "type": "array" },
+        "isPublished": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "programInfo": {
+      "schema": "programInfo",
+      "description": "General programme information"
+    },
+    "courses": {
+      "schema": "course",
+      "description": "Curriculum courses"
+    },
+    "faculty": {
+      "schema": "faculty",
+      "description": "Faculty members"
+    },
+    "labs": {
+      "schema": "lab",
+      "description": "Laboratory information"
+    },
+    "news": {
+      "schema": "news",
+      "description": "News and announcements"
+    },
+    "faq": {
+      "schema": "faq",
+      "description": "Frequently asked questions"
+    },
+    "chatbotKnowledge": {
+      "schema": "chatbotKnowledge",
+      "description": "Knowledge base for the AI assistant"
+    }
+  }
+}

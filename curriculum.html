@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сургалтын төлөвлөгөө - MTRL МУИС</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .tab-btn.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .course-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+        .course-info h4 {
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+        .course-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .course-credit {
+            background: var(--light-bg);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="container uppercase">
+                <div>МУИС • Инженер Технологийн Сургууль</div>
+                <div class="hidden-mobile">ENG</div>
+            </div>
+        </div>
+        <nav class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="https://set.num.edu.mn/wp-content/themes/num-set/assets/images/logo.png" alt="NUM SET Logo">
+                <div class="logo-text">
+                    <h1>Материал судлал, инженерчлэл</h1>
+                    <p>Materials Science and Engineering</p>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Нүүр</a></li>
+                <li><a href="about.html">Хөтөлбөр</a></li>
+                <li><a href="curriculum.html">Сургалт</a></li>
+                <li><a href="faculty.html">Багш нар</a></li>
+                <li><a href="labs.html">Лаборатори</a></li>
+                <li><a href="news.html">Мэдээ</a></li>
+                <li><a href="admissions.html" class="btn btn-primary" style="padding: 8px 15px; color: #003366;">Элсэлт</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header" style="background: var(--dark-blue); color: white; padding: 40px 0;">
+            <div class="container">
+                <h1>Сургалтын төлөвлөгөө</h1>
+                <p>Нийт 121 багц цаг, 4 жилийн сургалтын бүтэц</p>
+            </div>
+        </section>
+
+        <section id="curriculum">
+            <div class="container">
+                <div class="tabs">
+                    <div class="tab-btn active" data-tab="year1">1-р курс</div>
+                    <div class="tab-btn" data-tab="year2">2-р курс</div>
+                    <div class="tab-btn" data-tab="year3">3-р курс</div>
+                    <div class="tab-btn" data-tab="year4">4-р курс</div>
+                </div>
+
+                <div id="year1" class="tab-content active">
+                    <h3>Ерөнхий суурь хичээлүүд</h3>
+                    <div class="course-list" style="margin-top: 20px;">
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>MATH101 – Нэг хувьсагчийн функцийн онол</h4>
+                                <p>Calculus I</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>PHYS101 – Физик I</h4>
+                                <p>General Physics I</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>CHEM101 – Ерөнхий хими</h4>
+                                <p>General Chemistry</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="year2" class="tab-content">
+                    <h3>Мэргэжлийн суурь хичээлүүд</h3>
+                    <div class="course-list" style="margin-top: 20px;">
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>MTRL201 – Материал судлалын үндэс</h4>
+                                <p>Introduction to Materials Science</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>CHEM202 – Органик хими</h4>
+                                <p>Organic Chemistry</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="year3" class="tab-content">
+                    <h3>Мэргэжлийн заавал судлах хичээлүүд</h3>
+                    <div class="course-list" style="margin-top: 20px;">
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>MTRL301 – Хатуу биетийн хими</h4>
+                                <p>Solid State Chemistry</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>MTRL302 – Материалын боловсруулалт</h4>
+                                <p>Material Processing</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>MTRL305 – Материалын термодинамик</h4>
+                                <p>Thermodynamics of Materials</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="year4" class="tab-content">
+                    <h3>Мэргэшүүлэх болон дипломын ажил</h3>
+                    <div class="course-list" style="margin-top: 20px;">
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>MTRL408 – Дэвшилтэт материалууд</h4>
+                                <p>Advanced Materials</p>
+                            </div>
+                            <div class="course-credit">3 ББц</div>
+                        </div>
+                        <div class="course-card">
+                            <div class="course-info">
+                                <h4>THES401 – Бакалаврын судалгааны ажил</h4>
+                                <p>Bachelor Thesis</p>
+                            </div>
+                            <div class="course-credit">6 ББц</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 50px;">
+                    <button class="btn btn-primary"><i data-lucide="download"></i> Сургалтын төлөвлөгөө татах (PDF)</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div>© 2026 МУИС, Инженер Технологийн Сургууль. Материал судлал, инженерчлэл хөтөлбөр. Бүх эрх хуулиар хамгаалагдсан.</div>
+            <div class="footer-links">
+                <span>И-мэйл: mtrl@num.edu.mn</span>
+                <span>Утас: +976 11-320158</span>
+                <a href="admin.html" style="opacity: 0.5;">Админ</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabId) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
