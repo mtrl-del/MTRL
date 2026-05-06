@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Хиймэл оюунд тулгуурласан MTRL сургалт - МУИС</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,31 +12,33 @@
 </head>
 <body>
     <header>
-        <div class="top-bar">
-            <div class="container">
-                <div>МУИС • Инженер Технологийн Сургууль</div>
-                <div class="hidden-mobile">ENG</div>
-            </div>
-        </div>
-        <nav class="container navbar">
-            <a href="index.html" class="logo">
-                <img src="https://set.num.edu.mn/wp-content/themes/num-set/assets/images/logo.png" alt="NUM SET Logo">
-                <div class="logo-text">
-                    <h1>Материал судлал, инженерчлэл</h1>
-                    <p>Materials Science and Engineering</p>
+        <div class="container header-content">
+            <a href="index.html" class="logo-area">
+                <img src="https://www.num.edu.mn/favicon.ico" alt="NUM Logo">
+                <div class="logo-text-group">
+                    <span>МУИС - МАТЕРИАЛ СУДЛАЛ, ИНЖЕНЕРЧЛЭЛ (MTRL)</span>
+                    <h1>МАТЕРИАЛ СУДЛАЛ, ИНЖЕНЕРЧЛЭЛ</h1>
                 </div>
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Нүүр</a></li>
-                <li><a href="about.html">Хөтөлбөр</a></li>
-                <li><a href="curriculum.html">Сургалт</a></li>
-                <li><a href="faculty.html">Багш нар</a></li>
-                <li><a href="labs.html">Лаборатори</a></li>
-                <li><a href="news.html">Мэдээ</a></li>
-                <li><a href="admissions.html" class="btn btn-primary" style="padding: 8px 15px; color: #003366;">Элсэлт</a></li>
-            </ul>
-        </nav>
+            <nav class="nav-links">
+                <a href="index.html">НҮҮР</a>
+                <a href="about.html">ХӨТӨЛБӨР</a>
+                <a href="ai-learning.html" class="active" style="color: #fb923c;">AI СУРГАЛТ</a>
+                <a href="faculty.html">БАГШ НАР</a>
+                <a href="news.html">МЭДЭЭ</a>
+                <a href="#" class="lang">ENG</a>
+            </nav>
+        </div>
     </header>
+
+    <div class="status-bar">
+        <div class="container status-flex">
+            <div class="status-dots">
+                <span>ХИЙМЭЛ ОЮУНД ТУЛГУУРЛАСАН СУРГАЛТ</span>
+            </div>
+            <a href="admissions.html" class="btn btn-primary" style="background: #1e3a8a; font-size: 0.7rem; padding: 10px 25px;">Элсэлт 2026-2027</a>
+        </div>
+    </div>
 
     <main>
         <section class="hero" style="height: 300px; background-image: url('https://picsum.photos/seed/ai_materials/1600/600');">
@@ -116,12 +118,10 @@
     </main>
 
     <footer>
-        <div class="container footer-content">
+        <div class="container footer-flex">
             <div>© 2026 МУИС, Инженер Технологийн Сургууль. Материал судлал, инженерчлэл хөтөлбөр. Бүх эрх хуулиар хамгаалагдсан.</div>
-            <div class="footer-links">
-                <span>И-мэйл: mtrl@num.edu.mn</span>
-                <span>Утас: +976 11-320158</span>
-                <a href="admin.html" style="opacity: 0.5;">Админ</a>
+            <div class="footer-contact">
+                И-мэйл: mtrl@num.edu.mn | Утас: +976 11-320158
             </div>
         </div>
     </footer>
