@@ -23,8 +23,12 @@
             <nav class="nav-links">
                 <a href="index.html" class="active">НҮҮР</a>
                 <a href="about.html">ХӨТӨЛБӨР</a>
+                <a href="curriculum.html">СУРГАЛТ</a>
                 <a href="ai-learning.html" style="color: #fb923c;">AI СУРГАЛТ</a>
                 <a href="faculty.html">БАГШ НАР</a>
+                <a href="labs.html">ЛАБОРАТОРИ</a>
+                <a href="careers.html">АЖИЛ МЭРГЭЖИЛ</a>
+                <a href="news.html">МЭДЭЭ</a>
                 <a href="admissions.html">ЭЛСЭЛТ</a>
                 <a href="#" class="lang">ENG</a>
             </nav>
@@ -39,7 +43,6 @@
             </div>
             <div class="status-actions">
                 <a href="admissions.html" class="btn btn-primary" style="background: #1e3a8a; font-size: 0.7rem; padding: 10px 25px;">Элсэлт 2026</a>
-                <a href="#" class="btn" style="border: 1px solid #e2e8f0; font-size: 0.7rem; padding: 10px 25px; margin-left:10px;">Хөтөлбөрийн PDF</a>
             </div>
         </div>
     </div>
@@ -54,21 +57,31 @@
                 </div>
 
                 <div class="stats-strip">
-                    <div class="stat-item">
+                    <div class="stat-item" onclick="openSummaryModal('credits')">
                         <h4>121</h4>
                         <p>БАГЦ ЦАГ</p>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item" onclick="openSummaryModal('duration')">
                         <h4>4 жил</h4>
                         <p>СУРАЛЦАХ ХУГАЦАА</p>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item" onclick="openSummaryModal('degree')">
                         <h4>B.Eng</h4>
                         <p>ЗЭРЭГ</p>
                     </div>
-                    <div class="stat-item blue">
+                    <div class="stat-item blue" onclick="openSummaryModal('ai_pathway')">
                         <h4>AI +</h4>
                         <p>DIGITAL PATHWAY</p>
+                    </div>
+                </div>
+
+                <!-- Summary Details Modal -->
+                <div class="modal-overlay" id="summary_modal">
+                    <div class="modal-container summary-modal">
+                        <button class="modal-close" id="close_summary_modal"><i data-lucide="x"></i></button>
+                        <div id="summary_modal_content">
+                            <!-- Dynamic Content -->
+                        </div>
                     </div>
                 </div>
 
@@ -282,6 +295,249 @@
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Summary Modal Logic
+        const summaryModal = document.getElementById('summary_modal');
+        const summaryContent = document.getElementById('summary_modal_content');
+        const closeSummaryModal = document.getElementById('close_summary_modal');
+
+        const summaryData = {
+            credits: {
+                title: "121 багц цаг",
+                subtitle: "Инженерийн бакалаврын бүрэн сургалтын бүтэц",
+                tabs: [
+                    {
+                        id: "overview",
+                        label: "Товч ойлголт",
+                        content: `<p>Материал судлал, инженерчлэл хөтөлбөр нь нийт 121 багц цагийн сургалтын агуулгатай. Энэ нь оюутанд шинжлэх ухааны суурь мэдлэг, инженерийн арга барил, материалын бүтэц–шинж чанар–боловсруулалтын ойлголт, лаборатори ба судалгааны ур чадварыг шат дараатай эзэмшүүлэхээр зохион байгуулагдсан.</p>`
+                    },
+                    {
+                        id: "value",
+                        label: "Оюутанд өгөх үнэ цэнэ",
+                        content: `
+                            <ul class="summary-list">
+                                <li>Материал гэж юу вэ, яагаад өөр өөр шинж чанартай байдаг вэ гэдгийг ойлгоно.</li>
+                                <li>Металл, керамик, полимер, композит, нано болон дэвшилтэт материалын суурь ойлголт авна.</li>
+                                <li>Лабораторийн туршилт, хэмжилт, өгөгдлийн тайлбар хийх чадвар эзэмшинэ.</li>
+                                <li>Үйлдвэрлэл, судалгаа, чанарын хяналт, технологийн салбарт ажиллах суурь бэлтгэлтэй болно.</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        id: "details",
+                        label: "Холбоотой мэдээлэл",
+                        content: `
+                            <div class="mini-table">
+                                <div class="table-row"><span>Ерөнхий суурь:</span> <span>Байгалийн ухаан, тооцоолол, ерөнхий мэдлэг</span></div>
+                                <div class="table-row"><span>Мэргэжлийн суурь:</span> <span>Инженерчлэл ба материал судлалын үндэс</span></div>
+                                <div class="table-row"><span>Мэргэшлийн хичээлүүд:</span> <span>Бүтэц, шинж чанар, боловсруулалт</span></div>
+                                <div class="table-row"><span>Сонгон судлах:</span> <span>Карьерын чиглэлээр гүнзгийрэх боломж</span></div>
+                                <div class="table-row"><span>Төгсөлт:</span> <span>Дадлага, төсөл, дипломын ажил</span></div>
+                            </div>
+                            <div class="modal-ctas">
+                                <a href="curriculum.html" class="btn btn-outline">Сургалтын бүтцийг үзэх</a>
+                                <a href="curriculum.html#courses" class="btn btn-outline">Хичээлийн чиглэлүүд</a>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            duration: {
+                title: "4 жил",
+                subtitle: "Сууриас мэргэшил хүртэлх суралцах замнал",
+                tabs: [
+                    {
+                        id: "overview",
+                        label: "Товч ойлголт",
+                        content: `<p>Энэ хөтөлбөр нь 4 жилийн стандарт хугацаанд суралцах инженерийн бакалаврын хөтөлбөр юм. Оюутан эхний жилүүдэд шинжлэх ухаан, инженерчлэлийн сууриа бүрдүүлж, дараагийн жилүүдэд материалын шинж чанар, боловсруулалт, лаборатори, судалгаа, үйлдвэрлэлийн хэрэглээ рүү шатлан гүнзгийрдэг.</p>`
+                    },
+                    {
+                        id: "value",
+                        label: "Суралцах замнал",
+                        content: `
+                            <div class="timeline-summary">
+                                <div class="timeline-step">
+                                    <div class="step-num">1-р жил</div>
+                                    <div class="step-desc"><strong>Суурь мэдлэг:</strong> Математик, физик, хими, академик бичих, тооцооллын суурь.</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-num">2-р жил</div>
+                                    <div class="step-desc"><strong>Материал судлалын үндэс:</strong> Материалын төрөл, атомын бүтэц, талст бүтэц, фаз, үндсэн шинж чанар.</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-num">3-р жил</div>
+                                    <div class="step-desc"><strong>Инженерчлэл ба лаборатори:</strong> Боловсруулах арга, механик/дулаан/цахилгаан шинж чанар, дадлага.</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-num">4-р жил</div>
+                                    <div class="step-desc"><strong>Мэргэшил ба төгсөлт:</strong> Дэвшилтэт материал, судалгааны төсөл, дипломын ажил.</div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        id: "details",
+                        label: "Холбоотой мэдээлэл",
+                        content: `
+                            <ul class="summary-list">
+                                <li>4 жилийн турш “юу сурах вэ?” гэдэг нь ойлгомжтой болно.</li>
+                                <li>Эхний жилээс төгсөх хүртэл өөрийн карьерын чиглэлээ аажмаар сонгох боломжтой.</li>
+                                <li>Дадлага, лаборатори, дипломын ажлаар бодит асуудал дээр ажиллаж сурна.</li>
+                            </ul>
+                            <div class="modal-ctas">
+                                <a href="admissions.html" class="btn btn-outline">Элсэгчдэд зориулсан зөвлөмж</a>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            degree: {
+                title: "B.Eng",
+                subtitle: "Материал судлал, инженерчлэлийн инженерийн бакалавр",
+                tabs: [
+                    {
+                        id: "overview",
+                        label: "Товч ойлголт",
+                        content: `<p>Төгсөгч нь Материал судлал, инженерчлэл чиглэлээр B.Eng буюу инженерийн бакалаврын зэрэгтэй төгсөнө. Энэ нь материалыг ойлгох, сонгох, боловсруулах, турших, шинж чанарыг үнэлэх, үйлдвэрлэл болон судалгаанд инженерийн шийдэл гаргах мэдлэг, ур чадварыг илэрхийлнэ.</p>`
+                    },
+                    {
+                        id: "value",
+                        label: "Оюутанд өгөх үнэ цэнэ",
+                        content: `
+                            <ul class="summary-list">
+                                <li>Инженерийн суурь мэдлэгтэй болно.</li>
+                                <li>Материалын бүтэц–шинж чанар–боловсруулалтын холбоог ойлгоно.</li>
+                                <li>Туршилтын үр дүн, лабораторийн өгөгдлийг тайлбарлаж сурна.</li>
+                                <li>Багаар ажиллах, техникийн тайлан бичих, илтгэх чадвар хөгжүүлнэ.</li>
+                                <li>Судалгаа, үйлдвэрлэл, чанарын хяналтад ажиллах боломжтой болно.</li>
+                            </ul>
+                        `
+                    },
+                    {
+                        id: "details",
+                        label: "Ажлын байр",
+                        content: `
+                            <div class="career-icons">
+                                <div class="career-icon-item"><i data-lucide="pickaxe"></i><span>Уул уурхай</span></div>
+                                <div class="career-icon-item"><i data-lucide="flame"></i><span>Металлурги</span></div>
+                                <div class="career-icon-item"><i data-lucide="building"></i><span>Барилгын материал</span></div>
+                                <div class="career-icon-item"><i data-lucide="zap"></i><span>Эрчим хүч</span></div>
+                                <div class="career-icon-item"><i data-lucide="test-tube-2"></i><span>Чанарын хяналт</span></div>
+                                <div class="career-icon-item"><i data-lucide="flask-conical"></i><span>R&D Судалгаа</span></div>
+                            </div>
+                            <div class="modal-ctas" style="margin-top: 20px;">
+                                <a href="careers.html" class="btn btn-outline">Ажлын байрны боломж</a>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            ai_pathway: {
+                title: "AI + Digital Pathway",
+                subtitle: "Ирээдүйн материал судлалд бэлтгэх шинэ чиглэл",
+                tabs: [
+                    {
+                        id: "overview",
+                        label: "Товч ойлголт",
+                        content: `
+                            <div class="badge-dev">Developing pathway / Хөгжүүлж буй чиглэл</div>
+                            <p style="margin-top: 15px;">Дэлхийн тэргүүлэх их сургуулиуд материал судлалын сургалт, судалгаанд өгөгдөл, тооцоолол, хиймэл оюун, материалын мэдээллийн сан, симуляци зэрэг арга зүйг улам өргөн ашиглаж байна. MTRL хөтөлбөр ч энэ олон улсын чиг хандлагад нийцүүлэн хиймэл оюун болон дижитал арга зүйг сургалт, судалгаа, лабораторийн өгөгдөлтэй уялдуулан үе шаттай хөгжүүлэхээр зорьж байна.</p>
+                        `
+                    },
+                    {
+                        id: "value",
+                        label: "Суралцах чиглэл",
+                        content: `
+                            <div class="ai-pillars">
+                                <div class="pillar">
+                                    <strong>Materials Data Literacy</strong>
+                                    <p>Өгөгдлийг цэгцлэх, график байгуулах, тайлбарлах чадвар (Python, Stats).</p>
+                                </div>
+                                <div class="pillar">
+                                    <strong>AI-assisted Characterization</strong>
+                                    <p>XRD, SEM зураг, спектрийн өгөгдлийг AI-аар тайлбарлах туслах хэрэгсэл.</p>
+                                </div>
+                                <div class="pillar">
+                                    <strong>Computational Materials Design</strong>
+                                    <p>Материалын найрлага, бүтэц, шинж чанарын хамаарлыг тооцооллоор ойлгох.</p>
+                                </div>
+                                <div class="pillar">
+                                    <strong>Responsible AI</strong>
+                                    <p>AI-ийн гаргасан үр дүнг физик-химийн зарчмаар шалгах, ёс зүйтэй хэрэглэх.</p>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        id: "details",
+                        label: "Олон улсын жишиг",
+                        content: `
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">MIT, Stanford, Berkeley, Northwestern зэрэг сургуулиуд data science, computation чиглэлийг Material Science-тэй нягт уялдуулан хөгжүүлж байна. Манай MTRL хөтөлбөр энэ жишгийг Монголын үйлдвэрлэл, лабораторийн бодит хэрэгцээнд нийцүүлэн хөгжүүлэх зорилготой.</p>
+                            <div class="modal-ctas">
+                                <a href="ai-learning.html" class="btn btn-outline">AI сургалтын мэдээлэл</a>
+                            </div>
+                        `
+                    }
+                ]
+            }
+        };
+
+        window.openSummaryModal = function(type) {
+            const data = summaryData[type];
+            if (!data) return;
+
+            summaryContent.innerHTML = `
+                <div class="modal-header">
+                    <h2>${data.title}</h2>
+                    <p>${data.subtitle}</p>
+                </div>
+                <div class="modal-tabs">
+                    ${data.tabs.map((tab, idx) => `
+                        <button class="tab-btn ${idx === 0 ? 'active' : ''}" onclick="switchSummaryTab('${tab.id}')" id="tab_${tab.id}">
+                            ${tab.label}
+                        </button>
+                    `).join('')}
+                </div>
+                <div class="tab-content-container">
+                    ${data.tabs.map((tab, idx) => `
+                        <div class="summary-tab-content ${idx === 0 ? 'active' : ''}" id="content_${tab.id}">
+                            ${tab.content}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            summaryModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        };
+
+        window.switchSummaryTab = function(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.summary-tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.getElementById('tab_' + tabId).classList.add('active');
+            document.getElementById('content_' + tabId).classList.add('active');
+        };
+
+        closeSummaryModal.addEventListener('click', () => {
+            summaryModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        summaryModal.addEventListener('click', (e) => {
+            if (e.target === summaryModal) {
+                summaryModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.classList.remove('active');
+                summaryModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         });

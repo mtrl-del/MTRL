@@ -6,76 +6,52 @@
     <title>Ажил мэргэжил - MTRL МУИС</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="container navbar">
-            <a href="index.html" class="logo">
+        <div class="container header-content">
+            <a href="index.html" class="logo-area">
                 <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
-                <div class="logo-text">
-                    <h1>Материал судлал, инженерчлэл</h1>
-                    <p>Materials Science and Engineering</p>
+                <div class="logo-text-group">
+                    <span>МУИС · ИНЖЕНЕР, ТЕХНОЛОГИЙН СУРГУУЛЬ</span>
+                    <h1>МАТЕРИАЛ СУДЛАЛ, ИНЖЕНЕРЧЛЭЛ (MTRL)</h1>
                 </div>
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Нүүр</a></li>
-                <li><a href="careers.html">Ажил мэргэжил</a></li>
-                <li><a href="admissions.html">Элсэлт</a></li>
-            </ul>
-        </nav>
+            <nav class="nav-links">
+                <a href="index.html">НҮҮР</a>
+                <a href="about.html">ХӨТӨЛБӨР</a>
+                <a href="curriculum.html">СУРГАЛТ</a>
+                <a href="ai-learning.html" style="color: #fb923c;">AI СУРГАЛТ</a>
+                <a href="faculty.html">БАГШ НАР</a>
+                <a href="labs.html">ЛАБОРАТОРИ</a>
+                <a href="careers.html" class="active">АЖИЛ МЭРГЭЖИЛ</a>
+                <a href="news.html">МЭДЭЭ</a>
+                <a href="admissions.html">ЭЛСЭЛТ</a>
+                <a href="#" class="lang">ENG</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section class="page-header" style="background: var(--dark-blue); color: white; padding: 40px 0;">
-            <div class="container">
-                <h1>Ажил мэргэжлийн боломж</h1>
-                <p>Төгсөгчдийн ажиллах салбар, карьерыг төлөвлөх нь</p>
-            </div>
-        </section>
-
-        <section id="career-paths">
-            <div class="container">
-                <div class="grid">
-                    <div class="card p-20">
-                        <div class="card-body text-center">
-                            <i data-lucide="hard-hat" style="width: 48px; height: 48px; color: var(--primary-blue); margin-bottom: 20px;"></i>
-                            <h3>Үйлдвэрийн инженер</h3>
-                            <p>Уул уурхай, металлурги, химийн үйлдвэрүүдэд технологийн болон чанарын хяналтын инженер.</p>
-                        </div>
-                    </div>
-                    <div class="card p-20">
-                        <div class="card-body text-center">
-                            <i data-lucide="microscope" style="width: 48px; height: 48px; color: var(--primary-blue); margin-bottom: 20px;"></i>
-                            <h3>R&D Судлаач</h3>
-                            <p>Эрдэм шинжилгээний хүрээлэн, их сургууль болон компаниудын судалгаа хөгжлийн хэлтэст судлаач.</p>
-                        </div>
-                    </div>
-                    <div class="card p-20">
-                        <div class="card-body text-center">
-                            <i data-lucide="check-square" style="width: 48px; height: 48px; color: var(--primary-blue); margin-bottom: 20px;"></i>
-                            <h3>Чанарын шинжээч</h3>
-                            <p>Лабораториудад материалын шинжилгээ хийх, стандартын хяналт тавих мэргэжилтэн.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="ai-highlight" style="margin-top: 50px;">
-                    <h3>Монголын ТОП-100 аж ахуйн нэгжүүдэд ажиллах боломж</h3>
-                    <p>Эрдэнэт үйлдвэр, Оюу Толгой, МАК, Эрэл зэрэг томоохон компаниудад материалын инженерүүд эрэлттэй байна.</p>
-                </div>
-            </div>
-        </section>
+    <main id="hub_content">
+        <!-- Content will be rendered by JS -->
+        <div style="padding: 100px 0; text-align: center; color: var(--text-muted);">
+            Мэдээллийг ачаалж байна...
+        </div>
     </main>
 
-    <footer style="margin-top: 50px;">
-        <div class="container text-center">
-            <p>&copy; 2026 МУИС, MTRL</p>
+    <footer>
+        <div class="container footer-flex">
+            <div>© 2026 МУИС, Инженер Технологийн Сургууль. Материал судлал, инженерчлэл хөтөлбөр. Бүх эрх хуулиар хамгаалагдсан.</div>
+            <div class="footer-contact">
+                И-мэйл: mtrl@num.edu.mn | Утас: +976 11-320158
+            </div>
         </div>
     </footer>
 
-    <script> lucide.createIcons(); </script>
+    <script src="assets/js/careers.js"></script>
 </body>
 </html>
