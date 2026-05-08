@@ -15,13 +15,15 @@
             gap: 10px;
             margin-bottom: 30px;
             border-bottom: 2px solid var(--border-color);
+            flex-wrap: wrap;
         }
         .tab-btn {
-            padding: 10px 20px;
+            padding: 10px 15px;
             cursor: pointer;
             border-bottom: 3px solid transparent;
             font-weight: 600;
             color: var(--text-muted);
+            font-size: 0.9rem;
         }
         .tab-btn.active {
             color: var(--primary-blue);
@@ -42,6 +44,13 @@
             border-radius: 5px;
             border: 1px solid var(--border-color);
             margin-bottom: 10px;
+            gap: 15px;
+        }
+        @media (max-width: 600px) {
+            .course-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
         .course-info h4 {
             color: var(--primary-blue);
@@ -64,13 +73,15 @@
     <header>
         <div class="container header-content">
             <a href="index.html" class="logo-area">
-                <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
+                <div class="logo-badge">
+                    <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
+                </div>
                 <div class="logo-text-group">
                     <span>МУИС · ИНЖЕНЕР, ТЕХНОЛОГИЙН СУРГУУЛЬ</span>
                     <h1>МАТЕРИАЛ СУДЛАЛ, ИНЖЕНЕРЧЛЭЛ (MTRL)</h1>
                 </div>
             </a>
-            <nav class="nav-links">
+            <nav class="nav-links" id="nav_links">
                 <a href="index.html">НҮҮР</a>
                 <a href="about.html">ХӨТӨЛБӨР</a>
                 <a href="curriculum.html" class="active">СУРГАЛТ</a>
@@ -82,6 +93,9 @@
                 <a href="admissions.html">ЭЛСЭЛТ</a>
                 <a href="#" class="lang">ENG</a>
             </nav>
+            <button class="menu-toggle" id="menu_toggle" aria-label="Open menu">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
     </header>
 
@@ -237,5 +251,6 @@
             });
         });
     </script>
+    <script src="assets/js/nav.js"></script>
 </body>
 </html>

@@ -14,13 +14,15 @@
     <header>
         <div class="container header-content">
             <a href="index.html" class="logo-area">
-                <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
+                <div class="logo-badge">
+                    <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
+                </div>
                 <div class="logo-text-group">
                     <span>МУИС · ИНЖЕНЕР, ТЕХНОЛОГИЙН СУРГУУЛЬ</span>
                     <h1>МАТЕРИАЛ СУДЛАЛ, ИНЖЕНЕРЧЛЭЛ (MTRL)</h1>
                 </div>
             </a>
-            <nav class="nav-links">
+            <nav class="nav-links" id="nav_links">
                 <a href="index.html">НҮҮР</a>
                 <a href="about.html">ХӨТӨЛБӨР</a>
                 <a href="curriculum.html">СУРГАЛТ</a>
@@ -32,6 +34,9 @@
                 <a href="admissions.html">ЭЛСЭЛТ</a>
                 <a href="#" class="lang">ENG</a>
             </nav>
+            <button class="menu-toggle" id="menu_toggle" aria-label="Open menu">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
     </header>
 
@@ -80,5 +85,6 @@
     <script>
         lucide.createIcons();
     </script>
+    <script src="assets/js/nav.js"></script>
 </body>
 </html>

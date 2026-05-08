@@ -14,13 +14,15 @@
     <header>
         <div class="container header-content">
             <a href="index.html" class="logo-area">
-                <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
+                <div class="logo-badge">
+                    <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
+                </div>
                 <div class="logo-text-group">
                     <span>МУИС · ИНЖЕНЕР, ТЕХНОЛОГИЙН СУРГУУЛЬ</span>
                     <h1>МАТЕРИАЛ СУДЛАЛ, ИНЖЕНЕРЧЛЭЛ (MTRL)</h1>
                 </div>
             </a>
-            <nav class="nav-links">
+            <nav class="nav-links" id="nav_links">
                 <a href="index.html" class="active">НҮҮР</a>
                 <a href="about.html">ХӨТӨЛБӨР</a>
                 <a href="curriculum.html">СУРГАЛТ</a>
@@ -32,6 +34,9 @@
                 <a href="admissions.html">ЭЛСЭЛТ</a>
                 <a href="#" class="lang">ENG</a>
             </nav>
+            <button class="menu-toggle" id="menu_toggle" aria-label="Open menu">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
     </header>
 
@@ -87,21 +92,138 @@
 
                 <div class="features-box" style="margin-top: 30px;">
                     <div class="section-head">
-                        <h3>ЯАГААД MTRL ГЭЖ?</h3>
+                        <h3>Яагаад MTRL эрэлттэй мэргэжил вэ?</h3>
                     </div>
-                    <div class="feature-list">
-                        <div class="feature-row">
-                            <div class="feature-idx">01</div>
-                            <p>Монголын эрдэс баялаг, боловсруулах үйлдвэрлэлтэй шууд холбоотой сургалтын агуулга. Нано материал, дэвшилтэт материалын суурь мэдлэг олгоно.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6;">
+                        Материал судлал, инженерчлэл нь үйлдвэрлэл, шинэ материал, лаборатори, технологийн шинэчлэлтэй шууд холбогдох инженерийн чиглэл юм.
+                    </p>
+
+                    <!-- 1. QUICK STAT CARDS -->
+                    <div class="quick-stats-grid">
+                        <div class="q-stat-card">
+                            <h5>Монголын хөдөлмөрийн зах зээл</h5>
+                            <span class="stat-val">82.6 мянга</span>
+                            <span class="stat-cap">2026 онд үүсэх ажиллах хүчний эрэлт</span>
                         </div>
-                        <div class="feature-row">
-                            <div class="feature-idx">02</div>
-                            <p>Нано материал, эрчим хүчний материалын суурь мэдлэг. Судалгаа, лаборатори, бодит төсөлд суурилсан сонирхолтой сургалтын явц.</p>
+                        <div class="q-stat-card">
+                            <h5>Ажиллах хүчний хомсдол</h5>
+                            <span class="stat-val">40.2 мянга</span>
+                            <span class="stat-cap">2025 онд бүртгэгдсэн нийт хомсдол</span>
                         </div>
-                        <div class="feature-row">
-                            <div class="feature-idx">03</div>
-                            <p>Үйлдвэр, лаборатори, R&D, чанарын хяналтын салбарт өргөн ажлын байрны боломж.</p>
+                        <div class="q-stat-card">
+                            <h5>Materials Engineers growth</h5>
+                            <span class="stat-val">+6%</span>
+                            <span class="stat-cap">АНУ-д ажлын байрны өсөлт /2024–2034/</span>
                         </div>
+                        <div class="q-stat-card">
+                            <h5>Median salary</h5>
+                            <span class="stat-val">$108,310</span>
+                            <span class="stat-cap">Materials Engineers жилийн медиан цалин /АНУ, 2024/</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. SECTOR-BASED CHART BLOCK -->
+                    <div class="chart-block">
+                        <div class="chart-visual">
+                            <h4 class="chart-title">MTRL төгсөгчдийн ажиллах боломж өндөртэй салбарууд</h4>
+                            <div class="bar-row">
+                                <div class="bar-label"><span>Боловсруулах үйлдвэрлэл</span><span>85%</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 85%;"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label"><span>Барилгын материал, барилга</span><span>80%</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 80%;"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label"><span>Уул уурхай, олборлолт</span><span>75%</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 75%;"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label"><span>Металлурги, төмөрлөг</span><span>70%</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 70%;"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label"><span>Эрчим хүч</span><span>65%</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 65%;"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label"><span>Шинжилгээ, лаборатори, чанарын хяналт</span><span>90%</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 90%;"></div></div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label"><span>Мэргэжлийн, шинжлэх ухаан, техникийн үйлчилгээ</span><span>60%</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 60%;"></div></div>
+                            </div>
+                        </div>
+                        <div class="chart-info">
+                            <p>
+                                Материал судлал, инженерчлэл нь зөвхөн нэг салбарт хязгаарлагдахгүй. Боловсруулах үйлдвэрлэл, барилгын материал, уул уурхай, металлурги, эрчим хүч, лаборатори, чанарын хяналт, судалгаа хөгжүүлэлтийн олон чиглэлд хэрэгцээтэй инженерийн суурь бэлтгэдэг. Иймээс хөдөлмөрийн зах зээлийн хэрэгцээг салбар тус бүрээр нь харах нь MTRL хөтөлбөрийн хэрэглээ, төгсөгчдийн ажиллах боломжийг илүү ойлгомжтой харуулна.
+                            </p>
+                            <span style="font-size: 0.6rem; color: var(--text-muted); display: block; margin-top: 15px; font-style: italic;">
+                                Салбарын ангилал нь MTRL хөтөлбөрийн мэргэжлийн хэрэглээтэй уялдуулан харуулав.
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 3. GLOBAL TRENDS + FUTURE MATERIALS -->
+                    <div class="mtrl-grid">
+                        <div class="mtrl-mini-card">
+                            <h5 style="color: var(--primary-blue); font-size: 0.8rem; margin-bottom: 10px;">Олон улсын карьерын боломж</h5>
+                            <p style="font-size: 0.75rem; line-height: 1.5; color: var(--text-muted);">
+                                Олон улсын түвшинд материалын инженерүүд шинэ материал боловсруулах, бүтээгдэхүүний чанар сайжруулах, үйлдвэрлэлийн процесс оновчлох, батарей, электроник, сэргээгдэх эрчим хүч, ногоон технологийн материал хөгжүүлэх чиглэлд ажилладаг.
+                            </p>
+                            <div style="font-size: 0.6rem; font-weight: 700; color: #1e40af; margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
+                                BLS: 23,000 employment, 1,300 annual openings, +6% growth
+                            </div>
+                        </div>
+
+                        <div class="mtrl-mini-card">
+                            <h5 style="color: var(--primary-blue); font-size: 0.8rem; margin-bottom: 10px;">Эрчим хүчний шилжилт ба материал</h5>
+                            <p style="font-size: 0.75rem; line-height: 1.5; color: var(--text-muted);">
+                                Цэвэр эрчим хүч, цахилгаан автомашин, батарей, сүлжээний дэд бүтцийн өсөлт нь lithium, graphite, nickel, copper зэрэг гол эрдсүүдийн эрэлтийг нэмэгдүүлж байна. Энэ нь материал судлал, инженерчлэлийн ач холбогдлыг улам өсгөж байна.
+                            </p>
+                            <div style="font-size: 0.6rem; font-weight: 700; color: #1e40af; margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
+                                IEA 2025: Lithium demand 5x by 2040; graphite & nickel demand 2x; copper demand +30%
+                            </div>
+                        </div>
+
+                        <div class="mtrl-mini-card">
+                            <h5 style="color: var(--primary-blue); font-size: 0.8rem; margin-bottom: 10px;">Ирээдүйн ур чадвар</h5>
+                            <p style="font-size: 0.75rem; line-height: 1.5; color: var(--text-muted);">
+                                Орчин үеийн материал судлал нь лабораторийн туршилт, өгөгдлийн шинжилгээ, компьютер загварчлал, хиймэл оюуны тусламжтай материалын шинж чанар тайлбарлах, процесс оновчлох арга барилтай улам бүр холбогдож байна.
+                            </p>
+                            <div style="font-size: 0.6rem; font-weight: 700; color: #1e40af; margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
+                                WEF 2025: технологийн өөрчлөлт ба green transition нь ирээдүйн ажлын байрны гол хөдөлгөгч хүч хэвээр байна
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. CAREER CHIPS -->
+                    <div style="margin-top: 30px;">
+                        <h4 style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 15px;">MTRL төгсөгчдийн ажиллах чиглэл</h4>
+                        <div class="career-chips-wrap">
+                            <span class="career-chip">Уул уурхай, эрдэс боловсруулалт</span>
+                            <span class="career-chip">Барилгын материал</span>
+                            <span class="career-chip">Металлурги</span>
+                            <span class="career-chip">Эрчим хүч, батарей</span>
+                            <span class="career-chip">Чанарын хяналт, лаборатори</span>
+                            <span class="career-chip">Судалгаа хөгжүүлэлт /R&D/</span>
+                            <span class="career-chip">Ногоон технологи</span>
+                            <span class="career-chip">Ахисан түвшний судалгаа</span>
+                        </div>
+                    </div>
+
+                    <!-- 5. LINKS / SOURCE NOTE -->
+                    <div class="source-note-box">
+                        <h6>Эх сурвалж, дэлгэрэнгүй</h6>
+                        <ul>
+                            <li>• Монгол Улсын хөдөлмөрийн зах зээлийн хамгийн сүүлийн албан мэдээлэл</li>
+                            <li>• Хүн ам, хөдөлмөр, нийгмийн хамгааллын сургалт, судалгааны хүрээлэн</li>
+                            <li>• <a href="https://www.bls.gov/ooh/architecture-and-engineering/materials-engineers.htm" target="_blank">U.S. Bureau of Labor Statistics — Materials Engineers</a></li>
+                            <li>• <a href="https://www.weforum.org/reports/the-future-of-jobs-report-2023/" target="_blank">World Economic Forum — Future of Jobs Report 2025</a></li>
+                            <li>• <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2024" target="_blank">IEA — Global Critical Minerals Outlook 2025</a></li>
+                            <li>• МУИС-ийн MTRL хөтөлбөрийн дотоод эх сурвалж /2024-2025/</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -538,7 +660,23 @@
             if (e.key === 'Escape') {
                 modal.classList.remove('active');
                 summaryModal.classList.remove('active');
+                navLinks.classList.remove('active');
                 document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Mobile Menu Logic
+        const menuToggle = document.getElementById('menu_toggle');
+        const navLinks = document.getElementById('nav_links');
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
             }
         });
     </script>

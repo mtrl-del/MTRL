@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         .chat-container {
+            width: 100%;
             max-width: 800px;
             margin: 20px auto;
             background: white;
@@ -19,6 +20,12 @@
             display: flex;
             flex-direction: column;
             height: 600px;
+        }
+        @media (max-width: 768px) {
+            .chat-container {
+                height: calc(100vh - 150px);
+                margin: 10px 0;
+            }
         }
         .chat-header {
             padding: 15px 20px;
@@ -76,21 +83,32 @@
 </head>
 <body>
     <header>
-        <nav class="container navbar">
-            <a href="index.html" class="logo">
-                <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
-                <div class="logo-text">
-                    <h1>Материал судлал, инженерчлэл</h1>
-                    <p>Materials Science and Engineering</p>
+        <div class="container header-content">
+            <a href="index.html" class="logo-area">
+                <div class="logo-badge">
+                    <img src="https://elselt.num.edu.mn/wp-content/themes/admission/img/num-logo.png" alt="NUM Logo">
+                </div>
+                <div class="logo-text-group">
+                    <span>МУИС · ИНЖЕНЕР, ТЕХНОЛОГИЙН СУРГУУЛЬ</span>
+                    <h1>МАТЕРИАЛ СУДЛАЛ, ИНЖЕНЕРЧЛЭЛ (MTRL)</h1>
                 </div>
             </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Нүүр</a></li>
-                <li><a href="about.html">Хөтөлбөр</a></li>
-                <li><a href="curriculum.html">Сургалт</a></li>
-                <li><a href="chatbot.html">AI туслах</a></li>
-            </ul>
-        </nav>
+            <nav class="nav-links" id="nav_links">
+                <a href="index.html">НҮҮР</a>
+                <a href="about.html">ХӨТӨЛБӨР</a>
+                <a href="curriculum.html">СУРГАЛТ</a>
+                <a href="ai-learning.html" style="color: #fb923c;">AI СУРГАЛТ</a>
+                <a href="faculty.html">БАГШ НАР</a>
+                <a href="labs.html">ЛАБОРАТОРИ</a>
+                <a href="careers.html">АЖИЛ МЭРГЭЖИЛ</a>
+                <a href="news.html">МЭДЭЭ</a>
+                <a href="admissions.html">ЭЛСЭЛТ</a>
+                <a href="#" class="lang">ENG</a>
+            </nav>
+            <button class="menu-toggle" id="menu_toggle" aria-label="Open menu">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
     </header>
 
     <main>
@@ -165,5 +183,6 @@
             if (e.key === 'Enter') handleSend();
         });
     </script>
+    <script src="assets/js/nav.js"></script>
 </body>
 </html>
