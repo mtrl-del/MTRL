@@ -2094,3 +2094,21 @@ footer {
   font-weight: 600;
   color: var(--text-muted);
 }
+
+.site-counter {
+  font-size: 11px;
+  opacity: 0.8;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  color: inherit;
+  width: 100%;
+}
+
+.site-counter strong {
+  font-weight: 700;
+  color: var(--accent-orange);
+}

@@ -717,60 +717,6 @@
             }
         });
     </script>
-    
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-        const firebaseConfig = {
-            projectId: "ai-studio-applet-webapp-5eac4",
-            appId: "1:415638094814:web:82044a28996880f463934f",
-            apiKey: "AIzaSyADygYO5UO6lIgoiXlAmo5oKBYAW6Mvkqg",
-            authDomain: "ai-studio-applet-webapp-5eac4.firebaseapp.com",
-            firestoreDatabaseId: "ai-studio-0455b3b9-8b1a-4b7a-9c3d-02dbde5c5da7",
-            storageBucket: "ai-studio-applet-webapp-5eac4.firebasestorage.app",
-            messagingSenderId: "415638094814"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-
-        async function updateCounter() {
-            const counterEl = document.getElementById('visitorCount');
-            if (!counterEl) return;
-            
-            const statsDoc = doc(db, 'stats', 'site');
-            
-            try {
-                // Try to update/increment
-                await updateDoc(statsDoc, {
-                    views: increment(1)
-                });
-                
-                // Fetch the new value
-                const snapshot = await getDoc(statsDoc);
-                if (snapshot.exists()) {
-                    const count = snapshot.data().views || 0;
-                    counterEl.textContent = count.toLocaleString('en-US');
-                }
-            } catch (error) {
-                console.warn("Counter operation failed, attempting initialization:", error.message);
-                // If doc doesn't exist, create it
-                if (error.code === 'not-found' || error.message.includes('not found')) {
-                    try {
-                        await setDoc(statsDoc, { views: 1 }, { merge: true });
-                        counterEl.textContent = "1";
-                    } catch (e) {
-                        console.error("Initialization error:", e);
-                        counterEl.textContent = "—";
-                    }
-                } else {
-                    counterEl.textContent = "—";
-                }
-            }
-        }
-
-        updateCounter();
-    </script>
+    <script type="module" src="assets/js/counter.js"></script>
 </body>
 </html>
