@@ -85,8 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingWrapper.appendChild(avatarContainer);
 
         const loadingMsg = document.createElement('div');
-        loadingMsg.className = 'message bot-message';
-        loadingMsg.textContent = '...';
+        loadingMsg.className = 'message bot-message loading-bubble';
+        loadingMsg.innerHTML = `
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span class="typing-text">Бичиж байна...</span>
+            </div>
+        `;
         loadingWrapper.appendChild(loadingMsg);
         
         messagesContainer.appendChild(loadingWrapper);

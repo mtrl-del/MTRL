@@ -18,16 +18,24 @@ interface KnowledgeChunk {
   source: string;
 }
 
+interface FileDiag {
+  name: string;
+  mimeType: string;
+  textLength?: number;
+  chunkCount?: number;
+  reason?: string;
+}
+
 let knowledgeCache: KnowledgeChunk[] = [];
 let lastLoadedAt: string | null = null;
 let fileList: any[] = [];
+let loadedFilesDiag: FileDiag[] = [];
+let skippedFilesDiag: FileDiag[] = [];
 let driveStatus = "Not initialized";
 let driveError: string | null = null;
 
 function isFolderIdValid(id: string | undefined): boolean {
   if (!id) return false;
-  // Google Drive IDs are usually ~33 chars, alpha-numeric, underscores, hyphens.
-  // Folder names often have spaces or are shorter/simpler.
   const folderIdRegex = /^[a-zA-Z0-9_-]{25,50}$/;
   return folderIdRegex.test(id);
 }
@@ -39,7 +47,7 @@ async function loadKnowledge() {
   const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
   const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
 
-  const diagnostics = {
+  const diagnosticsMap = {
     hasGoogleClientId: !!clientId,
     hasGoogleClientSecret: !!clientSecret,
     hasGoogleRefreshToken: !!refreshToken,
@@ -47,15 +55,18 @@ async function loadKnowledge() {
     folderIdLooksValid: isFolderIdValid(folderId)
   };
 
+  loadedFilesDiag = [];
+  skippedFilesDiag = [];
+
   if (!clientId || !clientSecret || !refreshToken || !folderId) {
     const msg = "Google Drive credentials missing in environment variables.";
-    console.error(msg, diagnostics);
+    console.error(msg, diagnosticsMap);
     driveStatus = msg;
     driveError = msg;
     return [];
   }
 
-  if (!diagnostics.folderIdLooksValid) {
+  if (!diagnosticsMap.folderIdLooksValid) {
     const msg = `GOOGLE_DRIVE_FOLDER_ID appears to be a folder name ("${folderId}") instead of a Folder ID. Please use the unique ID string from the Drive URL.`;
     console.error(msg);
     driveStatus = "Invalid Folder ID";
@@ -76,15 +87,10 @@ async function loadKnowledge() {
     driveError = null;
   } catch (err: any) {
     let errorMsg = `Google Drive Authentication failed: ${err.message}`;
-    
     if (err.message?.includes("unauthorized_client") || (err.response?.data?.error === "unauthorized_client")) {
       errorMsg = "OAuth client ID/secret and refresh token do not match, or the refresh token was generated with a different OAuth client. Regenerate refresh token using the same GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.";
     }
-
     console.error(errorMsg);
-    if (err.response && err.response.data) {
-      console.error("Detailed Error:", JSON.stringify(err.response.data, null, 2));
-    }
     driveStatus = "Auth Failed";
     driveError = errorMsg;
     return [];
@@ -103,10 +109,6 @@ async function loadKnowledge() {
     fileList = files;
     console.log(`Found ${files.length} files in folder.`);
 
-    if (files.length === 0) {
-      console.warn("No files found. Please check Folder ID and permissions.");
-    }
-
     for (const file of files) {
       console.log(`Processing file: ${file.name} (${file.mimeType})`);
       let text = "";
@@ -116,96 +118,182 @@ async function loadKnowledge() {
             fileId: file.id!,
             mimeType: 'text/plain',
           });
-          text = exportRes.data as string;
+          text = typeof exportRes.data === 'string' ? exportRes.data : JSON.stringify(exportRes.data);
         } else if (file.mimeType === 'text/plain') {
           const getRes = await drive.files.get({
             fileId: file.id!,
             alt: 'media',
           });
-          text = getRes.data as string;
+          text = typeof getRes.data === 'string' ? getRes.data : JSON.stringify(getRes.data);
         } else {
           console.log(`Skipping: ${file.name} - Unsupported mimeType`);
+          skippedFilesDiag.push({ name: file.name!, mimeType: file.mimeType!, reason: "Unsupported file type" });
           continue;
         }
 
-        if (text) {
+        if (text && text.trim().length > 10) {
           console.log(`Read ${text.length} characters from ${file.name}`);
-          const chunkSize = 1000;
-          const overlap = 150;
-          
+          const chunkSize = 1200;
+          const overlap = 200;
           let fileChunks = 0;
+          
           for (let i = 0; i < text.length; i += (chunkSize - overlap)) {
-            const chunkText = text.substring(i, i + chunkSize);
-            chunks.push({
-              text: chunkText,
-              source: file.name || "Unknown"
-            });
-            fileChunks++;
+            const chunkText = text.substring(i, i + chunkSize).trim();
+            if (chunkText.length > 20) {
+              chunks.push({
+                text: chunkText,
+                source: file.name || "Unknown"
+              });
+              fileChunks++;
+            }
             if (i + chunkSize >= text.length) break;
           }
+          loadedFilesDiag.push({ name: file.name!, mimeType: file.mimeType!, textLength: text.length, chunkCount: fileChunks });
           console.log(`Created ${fileChunks} chunks from ${file.name}`);
         } else {
-          console.warn(`File ${file.name} appears to be empty.`);
+          console.warn(`File ${file.name} appears to be too short or empty.`);
+          skippedFilesDiag.push({ name: file.name!, mimeType: file.mimeType!, reason: "Empty or too short text content" });
         }
       } catch (err: any) {
-        console.error(`Error parsing file ${file.name}:`, err.message);
+        console.error(`Error processing file ${file.name}:`, err.message);
+        skippedFilesDiag.push({ name: file.name!, mimeType: file.mimeType!, reason: `Export/Read failed: ${err.message}` });
       }
     }
     
     lastLoadedAt = new Date().toISOString();
-    console.log(`Total chunks created: ${chunks.length}`);
     return chunks;
   } catch (err: any) {
-    console.error("Error listing files from Google Drive:", err.message);
     driveStatus = `Listing error: ${err.message}`;
     return [];
   }
 }
 
-function searchKnowledge(query: string, chunks: KnowledgeChunk[], limit = 5): KnowledgeChunk[] {
+function searchKnowledge(query: string, chunks: KnowledgeChunk[], limit = 6): KnowledgeChunk[] {
   if (!chunks.length) return [];
   
   const lowerQuery = query.toLowerCase();
-  const keywords = lowerQuery.split(/\s+/).filter(k => k.length > 2);
   
-  // Scoring logic
+  // Specific intent detection
+  const isTestQuery = /тест|код|secret|check|98765|шалгалт/.test(lowerQuery);
+  const isCourseQuery = /хичээл|төлөвлөгөө|curriculum|syllabus|хичээлүүд|судлах|үзэх|mtrl\d+|chem\d+|phys\d+/.test(lowerQuery);
+  const isGeneralMtrlQuery = /элсэлт|тэтгэлэг|ажил|мэргэжил|багш|лаборатори|боломж|төгсөгч|хөтөлбөр|танилцуулга|мэдээлэл/.test(lowerQuery) || isCourseQuery;
+
+  // Course specific keywords to prioritize
+  const courseKeywords = ['сургалтын төлөвлөгөө', 'хичээлийн жагсаалт', 'мэргэжлийн суурь', 'заавал судлах', 'сонгон судлах', 'mtrl201', 'chem208', 'mtrl302', 'mtrl304'];
+
+  const rawKeywords = lowerQuery.split(/\s+/).filter(k => k.length > 2);
+  // Add Mongolian stems for better matching (agglutinative language)
+  const stems = rawKeywords.map(k => k.length > 6 ? k.substring(0, 6) : k);
+  const keywords = Array.from(new Set([...rawKeywords, ...stems]));
+  
+  if (isCourseQuery) {
+    keywords.push(...courseKeywords);
+  }
+
   const scored = chunks.map(chunk => {
     let score = 0;
     const lowerText = chunk.text.toLowerCase();
+    const isTestFile = chunk.source.includes("00_Тест_Drive_уншилт");
+
+    // Filter rules:
+    // 1. Skip test file if not a test query and it's a general MTRL query
+    if (isTestFile && !isTestQuery && isGeneralMtrlQuery) return { chunk, score: -1 };
     
-    // Exact match for the whole query (highest priority)
-    if (lowerText.includes(lowerQuery)) score += 10;
+    // 2. Prioritize course files if it's a course query
+    const isCourseFile = /сургалтын|төлөвлөгөө|хичээл|curriculum|syllabus/.test(chunk.source.toLowerCase());
+    if (isCourseQuery && isCourseFile) score += 15;
+
+    // Scoring logic
+    if (lowerText.includes(lowerQuery)) score += 12;
     
-    // Keyword matches
     keywords.forEach(keyword => {
       if (lowerText.includes(keyword)) {
-        score += 2;
-        // Bonus for non-alphanumeric keywords (like test codes)
-        if (/[^a-zA-Z0-9]/.test(keyword)) score += 3;
+        score += 3;
+        if (/[^a-zA-Z0-9]/.test(keyword)) score += 2;
       }
     });
 
     return { chunk, score };
   });
 
-  const filtered = scored.filter(s => s.score > 0);
-  console.log(`Knowledge search found ${filtered.length} potential matches for "${query}"`);
-
-  const results = filtered
+  const results = scored
+    .filter(s => s.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map(s => s.chunk);
 
-  if (results.length > 0) {
-    console.log(`Top match source: ${results[0].source}`);
+  return results;
+}
+
+function isMongolian(text: string): boolean {
+  if (!text) return false;
+  
+  const cyrillicMatches = text.match(/[а-яөүёА-ЯӨҮЁ]/g) || [];
+  const latinMatches = text.match(/[a-zA-Z]/g) || [];
+  
+  const cyrillicCount = cyrillicMatches.length;
+  const latinCount = latinMatches.length;
+  
+  // If we have some cyrillic, it's likely Mongolian (or Russian, but we accept it as 'cyrillic-based')
+  // We are very lenient now: as long as there is cyrillic and it's not overwhelmed by Latin
+  if (cyrillicCount > 0) {
+    if (latinCount === 0) return true;
+    const ratio = cyrillicCount / (cyrillicCount + latinCount);
+    return ratio > 0.3; // 30% cyrillic is enough to accept it as probably containing the answer
   }
 
-  return results;
+  // If no cyrillic at all, it might be just numbers/symbols
+  return latinCount === 0; 
+}
+
+async function getAiResponse(systemPrompt: string, userMessage: string, retryCount = 0): Promise<string> {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey || apiKey === "YOUR_OPENROUTER_API_KEY_HERE") {
+    throw new Error("OPENROUTER_API_KEY_MISSING");
+  }
+
+  const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+    model: "openrouter/free",
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userMessage }
+    ],
+    temperature: 0.0
+  }, {
+    headers: {
+      "Authorization": `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": process.env.APP_URL || "https://mtrl.num.edu.mn",
+      "X-Title": "MTRL NUM Chatbot"
+    },
+    timeout: 45000 
+  });
+
+  const reply = response.data.choices[0]?.message?.content || "";
+
+  if (!reply || reply.trim().length === 0) {
+    throw new Error("EMPTY_AI_REPLY");
+  }
+
+  if (!isMongolian(reply) && retryCount < 1) {
+    console.warn("AI returned non-Mongolian/gibberish response. Raw:", reply.substring(0, 100));
+    const strictPrompt = `${systemPrompt}\n\nSTRICT RULE: Only answer in Mongolian Cyrillic. Do not use other scripts or gibberish characters. Current invalid response started with: ${reply.substring(0, 20)}`;
+    return getAiResponse(strictPrompt, userMessage, retryCount + 1);
+  }
+
+  return reply;
 }
 
 // Initial load
 loadKnowledge().then(chunks => {
   knowledgeCache = chunks;
+  if (!knowledgeCache.length) {
+    knowledgeCache = [{
+      text: "MTRL (Материал судлал, инженерчлэл) хөтөлбөр нь МУИС-ийн Инженер, технологийн сургуулийн харьяа хөтөлбөр юм. Хөтөлбөр нь материал судлаач, инженер бэлтгэдэг.",
+      source: "Системийн мэдээлэл"
+    }];
+  }
+  console.log(`[Knowledge] Loaded ${knowledgeCache.length} chunks initially.`);
 });
 
 async function startServer() {
@@ -214,14 +302,13 @@ async function startServer() {
 
   app.use(express.json());
 
-  // CORS Configuration
   app.use(cors({
     origin: ['https://set.num.edu.mn', 'http://localhost:3000', /--num\.edu\.mn$/],
     methods: ['POST', 'GET', 'OPTIONS'],
     credentials: true
   }));
 
-  // Reload Knowledge Endpoint
+  // Reload Knowledge Endpoint with detailed diagnostics
   app.get('/api/reload-knowledge', async (req, res) => {
     try {
       console.log("Manual knowledge reload requested...");
@@ -230,6 +317,8 @@ async function startServer() {
         success: true, 
         chunkCount: knowledgeCache.length,
         fileCount: fileList.length,
+        loadedFiles: loadedFilesDiag,
+        skippedFiles: skippedFilesDiag,
         lastLoadedAt 
       });
     } catch (err: any) {
@@ -289,20 +378,14 @@ async function startServer() {
       });
     }
 
-    const apiKey = process.env.OPENROUTER_API_KEY;
-
-    if (!apiKey || apiKey === "YOUR_OPENROUTER_API_KEY_HERE") {
-      console.error("OPENROUTER_API_KEY is missing or not configured.");
-      return res.status(500).json({ 
-        reply: "Одоогоор AI туслахтай холбогдох боломжгүй байна. Та дараа дахин оролдоно уу." 
-      });
-    }
-
     try {
       console.log(`Chat request received: "${message.substring(0, 50)}${message.length > 50 ? '...' : ''}"`);
       
       const relevantChunks = searchKnowledge(message, knowledgeCache);
-      console.log("Selected knowledge chunks:", JSON.stringify(relevantChunks.map(c => ({ source: c.source, preview: c.text.substring(0, 50) })), null, 2));
+      console.log("Selected knowledge chunks count:", relevantChunks.length);
+      if (relevantChunks.length > 0) {
+        console.log("Top matches sources:", relevantChunks.map(c => c.source).join(", "));
+      }
 
       let context = "";
       let sources: string[] = [];
@@ -312,31 +395,22 @@ async function startServer() {
         sources = Array.from(new Set(relevantChunks.map(c => c.source)));
       }
 
-      const systemPrompt = `Та МУИС-ийн Инженер, технологийн сургуулийн Материал судлал, инженерчлэл (MTRL) хөтөлбөрийн албан ёсны AI туслах. Зөвхөн Монгол хэлээр, кирилл бичгээр, товч, үнэн зөв, элсэгч болон оюутанд ойлгомжтой хариул. Орос болон англи хэлээр хариулахгүй. Мэдэхгүй мэдээллийг зохиохгүй.
+      const systemPrompt = `Та МУИС-ийн Инженер, технологийн сургуулийн Материал судлал, инженерчлэл (MTRL) хөтөлбөрийн албан ёсны AI туслах. 
+      
+ЗААВАР:
+1. Зөвхөн Монгол хэлээр, кирилл бичгээр хариул.
+2. Орос, Англи болон бусад хэлээр хариулахыг хатуу хориглоно.
+3. Хариулт товч, үнэн зөв, ойлгомжтой байх ёстой.
+4. Өгөгдсөн CONTEXT-д байхгүй мэдээллийг зохиож болохгүй. Гэхдээ хэрэв context-д холбогдох ерөнхий мэдээлэл байвал түүнийг ашиглан хариулж болно.
+5. Хэрэв мэдээлэл CONTEXT дотор ОБЪЕКТИВ байдлаар огт байхгүй бол зөвхөн: "Энэ мэдээлэл одоогоор MTRL-ийн албан ёсны мэдээллийн санд байхгүй байна. Баталгаажуулах шаардлагатай." гэж хариулна.
 
-Өгөгдсөн context мэдээллийг ашиглан хариулна уу. Хэрэв мэдээлэл context дотор байхгүй бол: "Энэ мэдээлэл одоогоор MTRL-ийн албан ёсны мэдээллийн санд байхгүй байна. Баталгаажуулах шаардлагатай." гэж хариулаад бусад ерөнхий мэдээллийг өгч болно.
+Нийтлэг асуултуудад зориулсан мэдээлэл Context-д байгаа бол түүнийг дэлгэрэнгүй ашигла.
 
 CONTEXT:
-${context || "No specific database context available."}`;
+${context || "MTRL хөтөлбөрийн мэдээллийн сан хоосон байна."}`;
 
-      const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-        model: "openrouter/free",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: message }
-        ]
-      }, {
-        headers: {
-          "Authorization": `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": process.env.APP_URL || "https://github.com/mtrl-num",
-          "X-Title": "MTRL NUM Chatbot"
-        },
-        timeout: 25000 
-      });
+      let reply = await getAiResponse(systemPrompt, message);
 
-      let reply = response.data.choices[0]?.message?.content || "Уучлаарай, хариу авахад алдаа гарлаа.";
-      
       if (sources.length > 0 && !reply.includes("Энэ мэдээлэл одоогоор MTRL-ийн албан ёсны мэдээллийн санд байхгүй байна")) {
         reply += `\n\nЭх сурвалж: ${sources.join(", ")}`;
       }
@@ -344,13 +418,10 @@ ${context || "No specific database context available."}`;
       console.log("Chatbot response sent successfully.");
       res.json({ reply });
     } catch (error: any) {
-      if (axios.isAxiosError(error)) {
-          const status = error.response?.status;
-          const errorData = error.response?.data;
-          console.error(`OpenRouter API Error [${status}]:`, JSON.stringify(errorData, null, 2) || error.message);
-      } else {
-          console.error("Chatbot server error:", error);
+      if (error.message === "OPENROUTER_API_KEY_MISSING") {
+        return res.status(500).json({ reply: "AI тохиргоо дутуу байна." });
       }
+      console.error("Chatbot processing error:", error.message);
       res.status(500).json({ reply: "Одоогоор AI туслахтай холбогдох боломжгүй байна. Та дараа дахин оролдоно уу." });
     }
   });

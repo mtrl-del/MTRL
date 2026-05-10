@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Элсэлт ба санхүүгийн боломж - MTRL МУИС</title>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260510-4">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260510-6">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,79 +41,468 @@
     </header>
 
     <main>
-        <!-- Header Section -->
-        <section class="page-header">
-            <div class="container">
-                <h1>Элсэлт ба санхүүгийн боломж</h1>
-                <p>Ирээдүйн инженерүүдэд зориулсан дэмжлэг, тэтгэлэг, боломжууд</p>
-            </div>
-        </section>
-
-        <!-- OVERVIEW VIEW -->
-        <section id="overview_view" class="finance-overview">
-            <div class="container">
-                <div class="finance-intro">
-                    <p>Материал судлал, инженерчлэл /D 072201/ бакалаврын хөтөлбөр нь 2024 оны 11 дүгээр сард магадлан итгэмжлэгдсэн. Иймд тус хөтөлбөрийн суралцагчид Төрийн сан / Боловсролын зээлийн сангийн сургалтын төлбөрийн зээл, МУИС-ийн болон бусад нэрэмжит тэтгэлэг, санхүүгийн дэмжлэгүүдэд хамрагдах боломжтой.</p>
-                </div>
-
-                <div class="category-grid">
-                    <!-- Card 1 -->
-                    <div class="category-card" onclick="showSection('accreditation')">
-                        <div class="card-icon"><i data-lucide="award"></i></div>
-                        <h3>Магадлан итгэмжлэл</h3>
-                        <p>2024 оны 11 сард магадлан итгэмжлэгдсэн хөтөлбөр.</p>
-                        <div class="card-btn">Дэлгэрэнгүй үзэх <i data-lucide="chevron-right" style="width:16px;"></i></div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="category-card" onclick="showSection('gov-loan')">
-                        <div class="card-icon"><i data-lucide="landmark"></i></div>
-                        <h3>Төрийн сангийн зээл</h3>
-                        <p>Боловсролын зээлийн сангийн сургалтын төлбөрийн зээлд хамрагдах боломж.</p>
-                        <div class="card-btn">Зээлийн мэдээлэл харах <i data-lucide="chevron-right" style="width:16px;"></i></div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="category-card" onclick="showSection('scholarships')">
-                        <div class="card-icon"><i data-lucide="graduation-cap"></i></div>
-                        <h3>Тэтгэлэг</h3>
-                        <p>МУИС-ийн нэрэмжит, элсэгчийн, STEM, нэрэмжит болон бусад тэтгэлгүүд.</p>
-                        <div class="card-btn">Тэтгэлгийн боломжууд <i data-lucide="chevron-right" style="width:16px;"></i></div>
-                    </div>
-                    <!-- Card 4 -->
-                    <div class="category-card" onclick="showSection('exchange')">
-                        <div class="card-icon"><i data-lucide="globe"></i></div>
-                        <h3>Оюутан солилцоо</h3>
-                        <p>Гадаадын түнш их сургуулиудын солилцоо, тэтгэлэгтэй хөтөлбөрүүд.</p>
-                        <div class="card-btn">Гадаад боломж харах <i data-lucide="chevron-right" style="width:16px;"></i></div>
-                    </div>
-                    <!-- Card 5 -->
-                    <div class="category-card" onclick="showSection('links')">
-                        <div class="card-icon"><i data-lucide="link"></i></div>
-                        <h3>Албан холбоосууд</h3>
-                        <p>БЗС, МУИС Элсэлт, МУИС Оюутны хөгжил, МУИС News зэрэг албан эх сурвалжууд.</p>
-                        <div class="card-btn">Албан холбоосууд <i data-lucide="chevron-right" style="width:16px;"></i></div>
+        <!-- 1. Modern Hero Section -->
+        <section class="admissions-visual-hero">
+            <div class="container hero-columns">
+                <div class="hero-text-content">
+                    <span class="admissions-hero-badge">МУИС • ИТС • MTRL</span>
+                    <h2>Материал судлал, инженерчлэл — Ирээдүйг бүтээх урлаг</h2>
+                    <p>Материалын бүтэц, шинж чанар, боловсруулалт, лабораторийн шинжилгээ, AI-д суурилсан инженерийн шийдлийг нэгтгэсэн бакалаврын хөтөлбөр.</p>
+                    <div class="admissions-hero-actions">
+                        <a href="https://elselt.num.edu.mn/" target="_blank" class="btn btn-primary" style="background: white; color: var(--primary-blue); min-width: 220px; font-weight: 800;">МУИС Элсэлтийн систем <i data-lucide="external-link" style="width:16px; margin-left:8px;"></i></a>
+                        <a href="ai-learning.html" class="btn" style="background: rgba(251, 146, 60, 0.2); border: 1px solid var(--accent-orange); color: white;">AI сургалтын чиглэл</a>
+                        <a href="contact.html" class="btn" style="border: 1px solid rgba(255,255,255,0.4); color: white;">Холбоо барих</a>
                     </div>
                 </div>
-
-                <div class="cta-box">
-                    <h3>MTRL хөтөлбөрийн элсэлт, тэтгэлэг, зээлийн талаар дэлгэрэнгүй мэдээлэл аваарай.</h3>
-                    <div class="cta-btns">
-                        <a href="https://elselt.num.edu.mn" target="_blank" class="btn btn-primary" style="background: white; color: #1e3a8a;">Элсэлтийн мэдээлэл</a>
-                        <a href="contact.html" class="btn" style="border: 1px solid white; color: white;">Холбоо барих</a>
-                        <a href="https://news.num.edu.mn/?cat=30" target="_blank" class="btn" style="border: 1px solid white; color: white;">Тэтгэлгийн зарууд үзэх</a>
+                <div class="admissions-hero-graphic">
+                    <div class="graphic-main-circle">
+                        <i data-lucide="atom" style="width: 80px; height: 80px; opacity: 0.1;"></i>
+                    </div>
+                    <div class="floating-card f-card-1">
+                        <i data-lucide="microscope" style="color: var(--accent-orange);"></i>
+                        Materials
+                    </div>
+                    <div class="floating-card f-card-2">
+                        <i data-lucide="brain-circuit" style="color: var(--accent-orange);"></i>
+                        AI-Driven
+                    </div>
+                    <div class="floating-card f-card-3">
+                        <i data-lucide="factory" style="color: var(--accent-orange);"></i>
+                        Industry
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Start of OVERVIEW VIEW -->
+        <section id="overview_view">
+            <!-- 2. Quick Facts Dashboard -->
+            <section class="admissions-section">
+                <div class="container">
+                    <div class="section-title-group" style="margin-bottom: 50px;">
+                        <h2 style="font-size: 2.2rem;">Хөтөлбөрийн үзүүлэлтүүд</h2>
+                        <p>MTRL хөтөлбөрийн статистик болон албан ёсны мэдээллүүд</p>
+                    </div>
+                    <div class="admissions-stat-grid">
+                        <div class="admissions-stat-card">
+                            <div class="stat-icon-box"><i data-lucide="graduation-cap"></i></div>
+                            <span class="val">B.Eng</span>
+                            <span class="label">Инженерийн бакалавр</span>
+                            <p class="desc">МУИС-ийн инженер, технологийн салбарын зэрэг.</p>
+                        </div>
+                        <div class="admissions-stat-card">
+                            <div class="stat-icon-box"><i data-lucide="clock"></i></div>
+                            <span class="val">4 жил</span>
+                            <span class="label">Суралцах хугацаа</span>
+                            <p class="desc">Нийт 8 улирлын сургалтын төлөвлөгөө.</p>
+                        </div>
+                        <div class="admissions-stat-card">
+                            <div class="stat-icon-box"><i data-lucide="book-open"></i></div>
+                            <span class="val">121</span>
+                            <span class="label">Нийт багц цаг</span>
+                            <p class="desc">Сонгох болон заавал судлах хичээлүүд.</p>
+                        </div>
+                        <div class="admissions-stat-card">
+                            <div class="stat-icon-box"><i data-lucide="shield-check"></i></div>
+                            <span class="val">2024.11</span>
+                            <span class="label">Магадлан итгэмжлэл</span>
+                            <p class="desc">Чанарын баталгаажуулалт хийгдсэн.</p>
+                        </div>
+                        <div class="admissions-stat-card">
+                            <div class="stat-icon-box"><i data-lucide="hash"></i></div>
+                            <span class="val">D 072201</span>
+                            <span class="label">Хөтөлбөрийн индекс</span>
+                            <p class="desc">БШУЯ-ны бүртгэл, ангиллын индекс.</p>
+                        </div>
+                        <div class="admissions-stat-card">
+                            <div class="stat-icon-box"><i data-lucide="landmark"></i></div>
+                            <span class="val">МУИС</span>
+                            <span class="label">ИТС /Иженер технологи/</span>
+                            <p class="desc">Ууган их сургуулийн инновацийн төв.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Why MTRL -->
+            <section class="admissions-section" style="background: var(--bg-slate);">
+                <div class="container">
+                    <div class="section-title-group">
+                        <h2>Яагаад MTRL сонгох вэ?</h2>
+                        <p>Судалгаа, үйлдвэрлэл, лаборатори, AI-д суурилсан инженерийн ур чадварыг нэгтгэсэн хөтөлбөр</p>
+                    </div>
+                    <div class="admissions-feature-grid">
+                        <div class="admissions-feature-card">
+                            <div class="feature-icon-circle"><i data-lucide="check-circle"></i></div>
+                            <h4>Магадлан итгэмжлэгдсэн</h4>
+                            <p>Сургалтын орчин, хөтөлбөрийн чанар нь үндэсний хэмжээнд хүлээн зөвшөөрөгдсөн.</p>
+                        </div>
+                        <div class="admissions-feature-card">
+                            <div class="feature-icon-circle"><i data-lucide="award"></i></div>
+                            <h4>Инженерийн бакалавр</h4>
+                            <p>МУИС-ийн ууган инженерчлэлийн сургуульд B.Eng зэрэг эзэмшинэ.</p>
+                        </div>
+                        <div class="admissions-feature-card">
+                            <div class="feature-icon-circle"><i data-lucide="microscope"></i></div>
+                            <h4>Лабораторид суурилсан</h4>
+                            <p>Орчин үеийн тоног төхөөрөмж дээр туршилт, судалгаа гардан гүйцэтгэнэ.</p>
+                        </div>
+                        <div class="admissions-feature-card">
+                            <div class="feature-icon-circle"><i data-lucide="factory"></i></div>
+                            <h4>Аж үйлдвэртэй уялдсан</h4>
+                            <p>Уул уурхай, металлурги, эрчим хүчний салбарт шууд ажиллах боломж.</p>
+                        </div>
+                        <div class="admissions-feature-card">
+                            <div class="feature-icon-circle"><i data-lucide="cpu"></i></div>
+                            <h4>AI ба өгөгдлийн ур чадвар</h4>
+                            <p>Материалын дизайн, өгөгдөл боловсруулалтад AI-г ашиглах чиглэлээр суралцана.</p>
+                        </div>
+                        <div class="admissions-feature-card">
+                            <div class="feature-icon-circle"><i data-lucide="globe"></i></div>
+                            <h4>Тэтгэлэг ба солилцоо</h4>
+                            <p>Гадаад дотоодын тэтгэлэг, оюутан солилцооны хөтөлбөрүүдэд нээлттэй.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Curriculum Structure Chart -->
+            <section class="admissions-section">
+                <div class="container">
+                    <div class="section-title-group">
+                        <h2>Сургалтын бүтэц</h2>
+                        <p>Онол, туршилт, судалгаа, дадлагыг хослуулсан 121 багц цагийн хөтөлбөр</p>
+                    </div>
+                    <div class="admissions-chart-panel">
+                        <div class="admissions-donut-chart">
+                            <svg viewBox="0 0 36 36" style="width: 100%; height: 100%;">
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#f1f5f9" stroke-width="3"></circle>
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="var(--primary-blue)" stroke-width="3" stroke-dasharray="26 74" stroke-dashoffset="25"></circle>
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#6366f1" stroke-width="3" stroke-dasharray="10 90" stroke-dashoffset="-1"></circle>
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#2563eb" stroke-width="3" stroke-dasharray="40 60" stroke-dashoffset="-11"></circle>
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#1d4ed8" stroke-width="3" stroke-dasharray="12 88" stroke-dashoffset="-51"></circle>
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#1e3a8a" stroke-width="3" stroke-dasharray="12 88" stroke-dashoffset="-63"></circle>
+                            </svg>
+                            <div class="donut-inner">
+                                <span>121</span>
+                                <label>Багц цаг</label>
+                            </div>
+                        </div>
+                        <div class="admissions-progress-list">
+                            <div class="admissions-progress-bar">
+                                <div class="bar-labels"><span>Ерөнхий суурь</span> <span class="bar-val">31 багц</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 26%; background: #3b82f6;"></div></div>
+                            </div>
+                            <div class="admissions-progress-bar">
+                                <div class="bar-labels"><span>Мэргэжлийн суурь</span> <span class="bar-val">12 багц</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 10%; background: #6366f1;"></div></div>
+                            </div>
+                            <div class="admissions-progress-bar">
+                                <div class="bar-labels"><span>Заавал судлах</span> <span class="bar-val">48 багц</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 40%; background: #2563eb;"></div></div>
+                            </div>
+                            <div class="admissions-progress-bar">
+                                <div class="bar-labels"><span>Сонгон судлах</span> <span class="bar-val">15 багц</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 12%; background: #1d4ed8;"></div></div>
+                            </div>
+                            <div class="admissions-progress-bar">
+                                <div class="bar-labels"><span>Чөлөөт сонголт</span> <span class="bar-val">15 багц</span></div>
+                                <div class="bar-outer"><div class="bar-inner" style="width: 12%; background: #1e3a8a;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Admission Exam & Timeline -->
+            <section class="admissions-section" style="background: var(--bg-slate);">
+                <div class="container">
+                    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start;">
+                        <div>
+                            <div class="section-title-group" style="text-align: left;">
+                                <h2>Элсэлтийн шалгалт</h2>
+                                <p>Босго оноо: <strong style="color: var(--primary-blue);">480</strong></p>
+                            </div>
+                            <div style="background: white; padding: 30px; border-radius: 20px; border: 1px solid var(--border-slate);">
+                                <div class="stacked-bar" style="margin-bottom: 25px;">
+                                    <div class="stacked-segment" style="width: 70%; background: var(--primary-blue);">Суурь 70%</div>
+                                    <div class="stacked-segment" style="width: 30%; background: var(--accent-orange);">Дагалдах 30%</div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 15px;">
+                                    <div>
+                                        <label style="display:block; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">СУУРЬ ШАЛГАЛТ:</label>
+                                        <div class="chip-group">
+                                            <span class="chip">Математик</span>
+                                            <span class="chip">Хими</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label style="display:block; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">ДАГАЛДАХ ШАЛГАЛТ:</label>
+                                        <div class="chip-group">
+                                            <span class="chip">Физик</span>
+                                            <span class="chip">Англи хэл</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="section-title-group" style="text-align: left;">
+                                <h2>Суралцах замнал</h2>
+                                <p>4 жилийн инженерийн аялал</p>
+                            </div>
+                            <div class="admissions-timeline-visual">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-step">
+                                    <div class="step-circle">1</div>
+                                    <div class="step-title">Суурь</div>
+                                    <div class="step-desc">Математик, байгалийн ухаан.</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-circle">2</div>
+                                    <div class="step-title">Үндэс</div>
+                                    <div class="step-desc">Материалын бүтэц, шинж чанар.</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-circle">3</div>
+                                    <div class="step-title">Инженер</div>
+                                    <div class="step-desc">Боловсруулалт, лаборатори.</div>
+                                </div>
+                                <div class="timeline-step">
+                                    <div class="step-circle">4</div>
+                                    <div class="step-title">Зэрэг</div>
+                                    <div class="step-desc">Судалгаа, диплом, үйлдвэрлэл.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Graduate Outcomes -->
+            <section class="admissions-section" style="background: white;">
+                <div class="container">
+                    <div class="section-title-group">
+                        <h2>Төгсөгчдийн үр дүн</h2>
+                        <p>Хөдөлмөрийн зах зээл дэх эрэлт хэрэгцээ ба ажил эрхлэлт</p>
+                    </div>
+                    <div class="admissions-chart-panel" style="background: var(--bg-slate); margin-bottom: 50px;">
+                        <div class="admissions-donut-chart">
+                            <svg viewBox="0 0 36 36" style="width: 100%; height: 100%;">
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="#e2e8f0" stroke-width="3"></circle>
+                                <circle cx="18" cy="18" r="15.9155" fill="transparent" stroke="var(--primary-blue)" stroke-width="3" stroke-dasharray="82 18" stroke-dashoffset="25"></circle>
+                            </svg>
+                            <div class="donut-inner">
+                                <span style="font-size: 1.8rem; color: var(--primary-blue);">82%</span>
+                                <label>Ажил эрхлэлт</label>
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-blue);">Мэргэжлээрээ ажиллаж байна</h3>
+                            <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;">MTRL хөтөлбөрийн төгсөгчдийн 80 гаруй хувь нь уул уурхай, барилга, эрчим хүчний томоохон компаниудад инженер, судлаачаар ажиллаж байна.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="admissions-stat-grid">
+                        <div class="admissions-stat-card" style="padding: 20px;">
+                            <div class="stat-icon-box" style="width: 40px; height: 40px;"><i data-lucide="mountain"></i></div>
+                            <span class="label" style="font-size: 0.9rem; margin-top: 10px;">Уул уурхай</span>
+                        </div>
+                        <div class="admissions-stat-card" style="padding: 20px;">
+                            <div class="stat-icon-box" style="width: 40px; height: 40px;"><i data-lucide="home"></i></div>
+                            <span class="label" style="font-size: 0.9rem; margin-top: 10px;">Барилгын материал</span>
+                        </div>
+                        <div class="admissions-stat-card" style="padding: 20px;">
+                            <div class="stat-icon-box" style="width: 40px; height: 40px;"><i data-lucide="factory"></i></div>
+                            <span class="label" style="font-size: 0.9rem; margin-top: 10px;">Металлурги</span>
+                        </div>
+                        <div class="admissions-stat-card" style="padding: 20px;">
+                            <div class="stat-icon-box" style="width: 40px; height: 40px;"><i data-lucide="flask-conical"></i></div>
+                            <span class="label" style="font-size: 0.9rem; margin-top: 10px;">Лаборатори</span>
+                        </div>
+                        <div class="admissions-stat-card" style="padding: 20px;">
+                            <div class="stat-icon-box" style="width: 40px; height: 40px;"><i data-lucide="settings"></i></div>
+                            <span class="label" style="font-size: 0.9rem; margin-top: 10px;">Үйлдвэрлэл</span>
+                        </div>
+                        <div class="admissions-stat-card" style="padding: 20px;">
+                            <div class="stat-icon-box" style="width: 40px; height: 40px;"><i data-lucide="search"></i></div>
+                            <span class="label" style="font-size: 0.9rem; margin-top: 10px;">R&D Судалгаа</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. AI + Materials -->
+            <section class="admissions-section" style="background: var(--bg-slate);">
+                <div class="container">
+                    <div class="section-title-group">
+                        <h2>AI-д суурилсан технологи</h2>
+                        <p>Материал судлалын салбарт хиймэл оюуныг ашиглах шинэ чадамж</p>
+                    </div>
+                    <div class="admissions-feature-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="admissions-feature-card" style="padding: 25px; text-align: center;">
+                            <i data-lucide="database" style="color: var(--accent-orange); margin-bottom: 15px; width: 32px; height: 32px;"></i>
+                            <h4 style="font-size: 1rem;">Өгөгдөл</h4>
+                        </div>
+                        <div class="admissions-feature-card" style="padding: 25px; text-align: center;">
+                            <i data-lucide="microscope" style="color: var(--accent-orange); margin-bottom: 15px; width: 32px; height: 32px;"></i>
+                            <h4 style="font-size: 1rem;">Шинжилгээ</h4>
+                        </div>
+                        <div class="admissions-feature-card" style="padding: 25px; text-align: center;">
+                            <i data-lucide="file-text" style="color: var(--accent-orange); margin-bottom: 15px; width: 32px; height: 32px;"></i>
+                            <h4 style="font-size: 1rem;">Судалгаа</h4>
+                        </div>
+                        <div class="admissions-feature-card" style="padding: 25px; text-align: center;">
+                            <i data-lucide="brain-circuit" style="color: var(--accent-orange); margin-bottom: 15px; width: 32px; height: 32px;"></i>
+                            <h4 style="font-size: 1rem;">Шийдвэр</h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Financial Opportunities -->
+            <section class="admissions-section">
+                <div class="container">
+                    <div class="section-title-group">
+                        <h2>Санхүүгийн боломжууд</h2>
+                        <p>Тэтгэлэг, зээл, оюутныг дэмжих хөтөлбөрүүд</p>
+                    </div>
+                    <div class="category-grid">
+                        <div class="category-card" onclick="showSection('gov-loan')">
+                            <div class="card-icon"><i data-lucide="landmark"></i></div>
+                            <h3>БЗС - Сургалтын зээл</h3>
+                            <p>Боловсролын зээлийн сангийн албан мэдээлэл.</p>
+                            <div class="card-btn">Зээлийн мэдээлэл <i data-lucide="chevron-right"></i></div>
+                        </div>
+                        <div class="category-card" onclick="showSection('scholarships')">
+                            <div class="card-icon"><i data-lucide="graduation-cap"></i></div>
+                            <h3>Тэтгэлэг</h3>
+                            <p>МУИС-ийн нэрэмжит болон STEM тэтгэлгүүд.</p>
+                            <div class="card-btn">Тэтгэлгийн боломж <i data-lucide="chevron-right"></i></div>
+                        </div>
+                        <div class="category-card" onclick="showSection('exchange')">
+                            <div class="card-icon"><i data-lucide="globe"></i></div>
+                            <h3>Гадаад боломж</h3>
+                            <p>Түнш их сургуулиудын солилцооны хөтөлбөр.</p>
+                            <div class="card-btn">Олон улсын солилцоо <i data-lucide="chevron-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Link Hub -->
+            <section class="admissions-section" style="background: var(--bg-slate);">
+                <div class="container">
+                    <div class="section-title-group">
+                        <h2>Албан эх сурвалжууд</h2>
+                        <p>Шууд холбогдох боломжтой албан ёсны эх сурвалжууд</p>
+                    </div>
+                    <div class="link-hub-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                        <a href="https://elselt.num.edu.mn/" target="_blank" class="admissions-link-card">
+                            <i data-lucide="external-link"></i>
+                            <div>
+                                <h4>МУИС Элсэлт</h4>
+                                <p>Бүртгэл, оноо, журам</p>
+                            </div>
+                        </a>
+                        <a href="https://elf.gov.mn/" target="_blank" class="admissions-link-card">
+                            <i data-lucide="external-link"></i>
+                            <div>
+                                <h4>БЗС (ELF)</h4>
+                                <p>Зээл, тэтгэлгийн сан</p>
+                            </div>
+                        </a>
+                        <a href="https://student.num.edu.mn/" target="_blank" class="admissions-link-card">
+                            <i data-lucide="external-link"></i>
+                            <div>
+                                <h4>Оюутны хөгжил</h4>
+                                <p>Үйлчилгээ, тэтгэлэг</p>
+                            </div>
+                        </a>
+                        <a href="https://news.num.edu.mn/" target="_blank" class="admissions-link-card">
+                            <i data-lucide="external-link"></i>
+                            <div>
+                                <h4>МУИС News</h4>
+                                <p>Мэдээ, зарлал</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. FAQ Section -->
+            <section class="admissions-section" style="background: var(--bg-slate);">
+                <div class="container">
+                    <div class="section-title-group">
+                        <h2>Түгээмэл асуулт, хариулт /FAQ/</h2>
+                        <p>Элсэгчид болон эцэг эхчүүдээс ирдэг нийтлэг асуултуудад зориулсан мэдээлэл</p>
+                    </div>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Энэ хөтөлбөр хэнд тохирох вэ?</span>
+                                <i data-lucide="plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Хими, физик, математик, технологи, материал, үйлдвэрлэл, лаборатори, судалгаа, AI сонирхдог сурагчдад тохиромжтой.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Төгсөөд хаана ажиллах вэ?</span>
+                                <i data-lucide="plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Уул уурхай, эрдэс боловсруулалт, барилгын материал, металлурги, лаборатори, чанарын хяналт, үйлдвэрлэл, R&D, эрчим хүч, судалгааны байгууллагад ажиллах боломжтой.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Төрийн сангийн зээлд хамрагдах боломжтой юу?</span>
+                                <i data-lucide="plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Хөтөлбөр 2024 оны 11 сард магадлан итгэмжлэгдсэн тул Боловсролын зээлийн сангийн сургалтын төлбөрийн зээлд хамрагдах хөтөлбөрийн шаардлагыг хангана. Гэхдээ суралцагч хувь хүн тухайн жилийн журам, шалгуурыг хангах шаардлагатай.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Ямар шалгалтад анхаарах вэ?</span>
+                                <i data-lucide="plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Суурь шалгалтад Математик, Хими; дагалдах шалгалтад Физик, Математик, Хими, Англи хэл багтана. Тухайн жилийн албан журам, онооны шаардлагыг МУИС Элсэлтийн сайтаас шалгана.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>AI-г энэ хөтөлбөрт яаж ашиглах вэ?</span>
+                                <i data-lucide="plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Материалын өгөгдөл боловсруулах, лабораторийн үр дүн тайлбарлах, судалгааны эх сурвалжтай ажиллах, инженерийн шийдвэр гаргалтад AI-г хариуцлагатай ашиглах чиглэлээр үе шаттай хөгжүүлнэ.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Эцэг эхчүүд юуг анхаарах вэ?</span>
+                                <i data-lucide="plus"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Хөтөлбөрийн магадлан итгэмжлэл, ажил мэргэжлийн боломж, санхүүгийн дэмжлэг, сургалтын орчин, оюутны зөвлөгөө үйлчилгээ, албан эх сурвалжийн мэдээллийг шалгах нь чухал.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!-- End of OVERVIEW VIEW -->
 
         <!-- DETAIL VIEW SECTION -->
-        <section id="detail_view" class="detail-layout container">
+        <section id="detail_view" class="detail-layout container" style="display: none;">
             <!-- Sidebar Nav -->
             <aside class="detail-sidebar">
                 <div class="side-nav">
-                    <div class="side-nav-item" data-section="accreditation" onclick="showSection('accreditation')">
-                        <i data-lucide="award" style="width:18px;"></i>
-                        Магадлан итгэмжлэл
-                    </div>
                     <div class="side-nav-item" data-section="gov-loan" onclick="showSection('gov-loan')">
                         <i data-lucide="landmark" style="width:18px;"></i>
                         Төрийн сангийн зээл
@@ -126,10 +515,6 @@
                         <i data-lucide="globe" style="width:18px;"></i>
                         Гадаад боломж
                     </div>
-                    <div class="side-nav-item" data-section="links" onclick="showSection('links')">
-                        <i data-lucide="link" style="width:18px;"></i>
-                        Албан холбоосууд
-                    </div>
                 </div>
             </aside>
 
@@ -138,30 +523,10 @@
                 <nav class="breadcrumb">
                     <a href="#" onclick="showOverview(event)">Нүүр</a>
                     <span>/</span>
-                    <a href="#" onclick="showOverview(event)">Элсэлт ба санхүүгийн боломж</a>
+                    <a href="#" onclick="showOverview(event)">Элсэлт</a>
                     <span>/</span>
                     <span id="breadcrumb_current" style="color: var(--primary-blue); font-weight: 600;"></span>
                 </nav>
-
-                <!-- Accreditation Detail -->
-                <div id="content_accreditation" class="detail-pane" style="display:none;">
-                    <div class="detail-header">
-                        <div class="accred-badge"><i data-lucide="check-circle" style="width:14px;"></i> Accredited · 2024.11</div>
-                        <h2>Магадлан итгэмжлэгдсэн хөтөлбөр</h2>
-                    </div>
-                    <p style="line-height: 1.8; color: var(--text-main); margin-bottom: 30px;">Материал судлал, инженерчлэл /D 072201/ бакалаврын хөтөлбөр нь 2024 оны 11 дүгээр сард магадлан итгэмжлэгдсэн. Энэхүү магадлан итгэмжлэл нь сургалтын чанар, багшлах бүрэлдэхүүн, сургалтын орчин, лабораторийн нөхцөл, суралцагчид чиглэсэн үйлчилгээ, хөтөлбөрийн үр дүн, чанарын баталгаажуулалтын тогтолцоог холбогдох шалгуурын дагуу үнэлж баталгаажуулсан болохыг илэрхийлнэ.</p>
-                    
-                    <h3 style="margin-bottom: 20px;">Quick Facts</h3>
-                    <table class="quick-facts">
-                        <tr><td>Хөтөлбөрийн нэр</td><td>Материал судлал, инженерчлэл</td></tr>
-                        <tr><td>Индекс</td><td>D 072201</td></tr>
-                        <tr><td>Түвшин</td><td>Бакалавр</td></tr>
-                        <tr><td>Олгох зэрэг</td><td>Инженерийн бакалавр /B.Eng/</td></tr>
-                        <tr><td>Суралцах хугацаа</td><td>4 жил</td></tr>
-                        <tr><td>Нийт багц цаг</td><td>121 багц цаг</td></tr>
-                        <tr><td>Магадлан итгэмжлэл</td><td>2024 оны 11 сард магадлан итгэмжлэгдсэн</td></tr>
-                    </table>
-                </div>
 
                 <!-- Gov Loan Detail -->
                 <div id="content_gov-loan" class="detail-pane" style="display:none;">
@@ -178,12 +543,6 @@
                         <a href="https://elf.gov.mn/" target="_blank" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                             Боловсролын зээлийн сан руу очих <i data-lucide="external-link" style="width:16px;"></i>
                         </a>
-                        <a href="https://elf.gov.mn/%D1%81%D1%83%D1%80%D0%B3%D0%B0%D0%BB%D1%82%D1%8B%D0%BD-%D0%B7%D1%8D%D1%8D%D0%BB-3/" target="_blank" class="btn" style="border: 1px solid var(--border-slate); display: flex; align-items: center; justify-content: center; gap: 10px;">
-                            Сургалтын зээлийн мэдээлэл харах <i data-lucide="external-link" style="width:16px;"></i>
-                        </a>
-                        <a href="https://elf.gov.mn/sztbt/" target="_blank" class="btn" style="border: 1px solid var(--border-slate); display: flex; align-items: center; justify-content: center; gap: 10px;">
-                            Зээл, тэтгэлэг, буцалтгүй тусламж <i data-lucide="external-link" style="width:16px;"></i>
-                        </a>
                     </div>
                 </div>
 
@@ -193,7 +552,6 @@
                         <h2>Тэтгэлгийн боломжууд</h2>
                     </div>
                     
-                    <!-- A. NUM Scholarships -->
                     <div class="scholarship-box">
                         <div class="scholarship-trigger" onclick="toggleAccordion(this)">
                             <span>МУИС-ийн тэтгэлэг</span>
@@ -205,56 +563,6 @@
                                 <li>Шинээр элсэгчийн тэтгэлэг</li>
                                 <li>Байгалийн ухаан, инженерийн чиглэлийн элсэгчийн тэтгэлэг</li>
                             </ul>
-                            <p style="font-size: 0.9rem; color: var(--text-muted);">MTRL хөтөлбөрийн оюутнууд сурлагын амжилт, элсэлтийн оноо, олимпиадын амжилт, идэвх оролцоо зэрэг шалгуураас хамааран МУИС-ийн нэрэмжит болон элсэгчдэд зориулсан тэтгэлгүүдэд хамрагдах боломжтой.</p>
-                        </div>
-                    </div>
-
-                    <!-- B. Named Scholarships -->
-                    <div class="scholarship-box">
-                        <div class="scholarship-trigger" onclick="toggleAccordion(this)">
-                            <span>Нэрэмжит тэтгэлгүүд</span>
-                            <i data-lucide="chevron-down"></i>
-                        </div>
-                        <div class="scholarship-content">
-                            <ul class="scholarship-list">
-                                <li>Сүмитомо корпорацийн нэрэмжит тэтгэлэг</li>
-                                <li>Mitsubishi UFJ Foundation Scholarship</li>
-                                <li>Бусад жил бүр зарлагддаг нэрэмжит тэтгэлгүүд</li>
-                            </ul>
-                            <p style="font-size: 0.9rem; color: var(--text-muted);">МУИС дээр гадаад, дотоодын байгууллага, сан, хувь хүмүүсийн нэрэмжит тэтгэлгүүд жил бүр зарлагддаг. MTRL оюутнууд тухайн тэтгэлгийн шаардлага, голч дүн, идэвх, санхүүгийн хэрэгцээний шалгуурыг хангасан тохиолдолд өрсөлдөх боломжтой.</p>
-                        </div>
-                    </div>
-
-                    <!-- C. Targeted -->
-                    <div class="scholarship-box">
-                        <div class="scholarship-trigger" onclick="toggleAccordion(this)">
-                            <span>Зорилтот бүлгийн тэтгэлэг</span>
-                            <i data-lucide="chevron-down"></i>
-                        </div>
-                        <div class="scholarship-content">
-                            <ul class="scholarship-list">
-                                <li>STEM салбарт суралцаж буй охидыг дэмжих тэтгэлэг</li>
-                                <li>“Хичээнгүй оюутан” тэтгэлэг</li>
-                                <li>Хөгжлийн бэрхшээлтэй суралцагчийг дэмжих боломжууд</li>
-                            </ul>
-                            <p style="font-size: 0.9rem; color: var(--text-muted);">MTRL нь инженерчлэл/STEM чиглэлийн хөтөлбөр тул STEM чиглэлээр суралцаж буй эмэгтэй оюутнууд болон тусгай хэрэгцээ, амжилт, идэвх оролцоотой суралцагчид зорилтот тэтгэлгүүдэд хамрагдах боломжтой.</p>
-                        </div>
-                    </div>
-
-                    <!-- D. Research Based -->
-                    <div class="scholarship-box">
-                        <div class="scholarship-trigger" onclick="toggleAccordion(this)">
-                            <span>Судалгаа, амжилт, идэвх оролцоонд суурилсан боломж</span>
-                            <i data-lucide="chevron-down"></i>
-                        </div>
-                        <div class="scholarship-content">
-                            <ul class="scholarship-list">
-                                <li>Эрдэм шинжилгээний ажил</li>
-                                <li>Олон улсын уралдаан, тэмцээн</li>
-                                <li>Оюутны байгууллага, нийгмийн идэвх</li>
-                                <li>Лаборатори, төсөл, дадлагын боломж</li>
-                            </ul>
-                            <p style="font-size: 0.9rem; color: var(--text-muted);">Материал судлал, инженерчлэл хөтөлбөрийн оюутнууд судалгааны төсөл, лабораторийн ажил, эрдэм шинжилгээний хурал, олон улсын уралдаан, үйлдвэрлэлийн дадлага зэрэгт идэвхтэй оролцсоноор тэтгэлэг, дэмжлэг, гадаад боломжид өрсөлдөх давуу талтай.</p>
                         </div>
                     </div>
 
@@ -268,67 +576,11 @@
                     <div class="detail-header">
                         <h2>Оюутан солилцоо ба гадаад боломж</h2>
                     </div>
-                    <p style="line-height: 1.8; color: var(--text-main); margin-bottom: 30px;">МУИС-ийн гадаад хамтын ажиллагааны хүрээнд суралцагчид гадаадын түнш их сургуулиудад оюутан солилцоогоор суралцах, богино хугацааны сургалт, судалгааны дадлага, тэтгэлэгтэй хөтөлбөрүүдэд хамрагдах боломжтой. MTRL хөтөлбөрийн оюутнууд хэлний чадвар, голч дүн, хөтөлбөрийн тохирц, тухайн зарын шаардлагыг хангасан тохиолдолд эдгээр боломжид өрсөлдөж болно.</p>
+                    <p style="line-height: 1.8; color: var(--text-main); margin-bottom: 30px;">МУИС-ийн гадаад хамтын ажиллагааны хүрээнд суралцагчид гадаадын түнш их сургуулиудад оюутан солилцоогоор суралцах, богино хугацааны сургалт, судалгааны дадлага, тэтгэлэгтэй хөтөлбөрүүд.</p>
                     
                     <a href="https://news.num.edu.mn/?cat=30" target="_blank" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                         МУИС-ийн солилцоо, тэтгэлгийн зарууд харах <i data-lucide="external-link" style="width:16px;"></i>
                     </a>
-                </div>
-
-                <!-- Links Detail -->
-                <div id="content_links" class="detail-pane" style="display:none;">
-                    <div class="detail-header">
-                        <h2>Холбогдох албан холбоосууд</h2>
-                    </div>
-                    
-                    <div class="links-grid">
-                        <!-- Link 1 -->
-                        <div class="link-card">
-                            <div style="color: var(--primary-blue); margin-bottom: 10px;"><i data-lucide="globe"></i></div>
-                            <h4>Боловсролын зээлийн сан</h4>
-                            <p>Сургалтын зээл, тэтгэлэг, буцалтгүй тусламжийн албан мэдээлэл.</p>
-                            <a href="https://elf.gov.mn/" target="_blank" class="card-btn">Албан эх сурвалж <i data-lucide="external-link" style="width:14px;"></i></a>
-                        </div>
-                        <!-- Link 2 -->
-                        <div class="link-card">
-                            <div style="color: var(--primary-blue); margin-bottom: 10px;"><i data-lucide="credit-card"></i></div>
-                            <h4>БЗС – Сургалтын зээл</h4>
-                            <p>Сургалтын төлбөрийн зээлийн шаардлага, нөхцөл.</p>
-                            <a href="https://elf.gov.mn/%D1%81%D1%83%D1%80%D0%B3%D0%B0%D0%BB%D1%82%D1%8B%D0%BD-%D0%B7%D1%8D%D1%8D%D0%BB-3/" target="_blank" class="card-btn">Албан эх сурвалж <i data-lucide="external-link" style="width:14px;"></i></a>
-                        </div>
-                        <!-- Link 3 -->
-                        <div class="link-card">
-                            <div style="color: var(--primary-blue); margin-bottom: 10px;"><i data-lucide="file-text"></i></div>
-                            <h4>Зээл, тэтгэлэг, тусламж</h4>
-                            <p>Зээл, тэтгэлэг, буцалтгүй тусламжийн журам, процесс.</p>
-                            <a href="https://elf.gov.mn/sztbt/" target="_blank" class="card-btn">Албан эх сурвалж <i data-lucide="external-link" style="width:14px;"></i></a>
-                        </div>
-                        <!-- Link 4 -->
-                        <div class="link-card">
-                            <div style="color: var(--primary-blue); margin-bottom: 10px;"><i data-lucide="user-plus"></i></div>
-                            <h4>МУИС Элсэлт</h4>
-                            <p>Элсэгчдэд зориулсан тэтгэлэг, хөнгөлөлт, санхүүгийн дэмжлэг.</p>
-                            <a href="https://elselt.num.edu.mn/?page_id=34" target="_blank" class="card-btn">Албан эх сурвалж <i data-lucide="external-link" style="width:14px;"></i></a>
-                        </div>
-                        <!-- Link 5 -->
-                        <div class="link-card">
-                            <div style="color: var(--primary-blue); margin-bottom: 10px;"><i data-lucide="users"></i></div>
-                            <h4>МУИС Оюутны хөгжил</h4>
-                            <p>МУИС-ийн суралцагчдад зориулсан тэтгэлгийн мэдээлэл.</p>
-                            <a href="https://student.num.edu.mn/?page_id=127" target="_blank" class="card-btn">Албан эх сурвалж <i data-lucide="external-link" style="width:14px;"></i></a>
-                        </div>
-                        <!-- Link 6 -->
-                        <div class="link-card">
-                            <div style="color: var(--primary-blue); margin-bottom: 10px;"><i data-lucide="newspaper"></i></div>
-                            <h4>МУИС News – Тэтгэлэг</h4>
-                            <p>Жил бүр зарлагддаг тэтгэлэг, солилцоо, гадаад боломжууд.</p>
-                            <a href="https://news.num.edu.mn/?cat=30" target="_blank" class="card-btn">Албан эх сурвалж <i data-lucide="external-link" style="width:14px;"></i></a>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 30px; padding: 15px; background: #f8fafc; border-radius: 8px; font-size: 0.85rem; color: var(--text-muted); text-align: center;">
-                        Тэтгэлэг, зээлийн журам, бүртгэлийн хугацаа, бүрдүүлэх материал жил бүр шинэчлэгдэх тул албан эх сурвалжаас тогтмол шалгана уу.
-                    </div>
                 </div>
             </div>
         </section>
@@ -360,23 +612,19 @@
         const breadcrumbCurrent = document.getElementById('breadcrumb_current');
 
         const sectionNames = {
-            'accreditation': 'Магадлан итгэмжлэл',
             'gov-loan': 'Төрийн сангийн зээл',
             'scholarships': 'Тэтгэлэг',
-            'exchange': 'Оюутан солилцоо ба гадаад боломж',
-            'links': 'Холбогдох албан холбоосууд'
+            'exchange': 'Оюутан солилцоо ба гадаад боломж'
         };
 
         function showSection(sectionId) {
             overview.style.display = 'none';
             detail.style.display = 'grid';
 
-            // Hide all panes
             panes.forEach(p => p.style.display = 'none');
-            // Show target pane
-            document.getElementById('content_' + sectionId).style.display = 'block';
+            const target = document.getElementById('content_' + sectionId);
+            if(target) target.style.display = 'block';
 
-            // Update nav active state
             navItems.forEach(item => {
                 if (item.dataset.section === sectionId) {
                     item.classList.add('active');
@@ -385,8 +633,7 @@
                 }
             });
 
-            // Update breadcrumb
-            breadcrumbCurrent.innerText = sectionNames[sectionId];
+            breadcrumbCurrent.innerText = sectionNames[sectionId] || '';
             window.scrollTo(0, 0);
         }
 
@@ -399,14 +646,19 @@
 
         function toggleAccordion(element) {
             const box = element.parentElement;
-            const isActive = box.classList.contains('active');
-            
-            // Close others
-            document.querySelectorAll('.scholarship-box').forEach(b => b.classList.remove('active'));
-            
-            if (!isActive) {
-                box.classList.add('active');
+            box.classList.toggle('active');
+        }
+
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            item.classList.toggle('active');
+            const icon = element.querySelector('i');
+            if (item.classList.contains('active')) {
+                icon.setAttribute('data-lucide', 'minus');
+            } else {
+                icon.setAttribute('data-lucide', 'plus');
             }
+            lucide.createIcons();
         }
     </script>
     <script src="assets/js/nav.js"></script>
