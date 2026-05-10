@@ -4,11 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Хиймэл оюунд тулгуурласан MTRL сургалт - МУИС</title>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260508-1">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260510-4">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Scoped styles for ai-learning page */
+        .ai-hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1e40af 100%);
+            padding: 100px 0 140px 0;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+        .ai-hero::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 32px 32px;
+            pointer-events: none;
+        }
+        .ai-hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ai-hero p.subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            line-height: 1.6;
+        }
+        .hero-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .hero-mini-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+        .hero-mini-card:hover { transform: translateY(-5px); }
+        .hero-mini-card h3 { font-size: 1rem; color: var(--accent-orange); margin-bottom: 10px; font-weight: 700; }
+        .hero-mini-card p { font-size: 0.85rem; opacity: 0.9; line-height: 1.4; }
+
+        .section-padding { padding: 80px 0; }
+        .section-title-box { text-align: center; margin-bottom: 50px; }
+        .section-title-box h2 { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 15px; }
+        .section-title-box p { color: var(--text-muted); max-width: 700px; margin: 0 auto; }
+
+        .uni-card {
+            background: var(--white);
+            border: 1px solid var(--border-slate);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+        .uni-card:hover { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); border-color: var(--primary-blue); }
+        .uni-card h4 { font-size: 1.2rem; font-weight: 800; color: var(--primary-blue); }
+        .rank-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+        .rank-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .badge-wur { background: #fee2e2; color: #991b1b; }
+        .badge-eng { background: #dcfce7; color: #166534; }
+        .badge-sci { background: #dbeafe; color: #1e40af; }
+        .uni-desc { font-size: 0.85rem; color: var(--text-main); line-height: 1.5; }
+
+        .timeline-graphic {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            overflow-x: auto;
+        }
+        .timeline-item {
+            flex: 1;
+            min-width: 140px;
+            text-align: center;
+            background: #f8fafc;
+            padding: 20px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border-slate);
+            position: relative;
+        }
+        .timeline-item.active { background: #eff6ff; border-color: #3b82f6; }
+        .timeline-item h5 { font-size: 0.8rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 5px; }
+        .timeline-arrow { color: var(--border-slate); font-size: 1.5rem; }
+
+        .pathway-step {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+            align-items: flex-start;
+        }
+        .step-num {
+            width: 40px; height: 40px; background: var(--primary-blue); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; flex-shrink: 0;
+        }
+        .step-content { background: white; border: 1px solid var(--border-slate); padding: 20px; border-radius: 12px; flex: 1; }
+        .step-content h4 { font-size: 1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 8px; }
+        .step-example { font-size: 0.8rem; color: var(--accent-orange); font-weight: 600; margin-top: 5px; }
+
+        .heatmap-table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
+        .heatmap-table th, .heatmap-table td { border: 1px solid var(--border-slate); padding: 15px; text-align: center; font-size: 0.85rem; }
+        .heatmap-table th { background: #f1f5f9; color: var(--dark-blue); font-weight: 700; }
+        .dot-full { color: #22c55e; font-size: 1.2rem; }
+        .dot-empty { color: #cbd5e1; font-size: 1.2rem; }
+
+        .flow-container { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .flow-box { background: white; border: 2px solid var(--border-slate); padding: 12px 30px; border-radius: 40px; font-weight: 600; font-size: 0.9rem; color: var(--primary-blue); min-width: 200px; text-align: center; }
+        .flow-box.accent { border-color: var(--accent-orange); background: #fffaf5; }
+
+        .opp-card { background: white; border: 1px solid var(--border-slate); padding: 30px; border-radius: 16px; height: 100%; }
+        .opp-icon { width: 48px; height: 48px; background: #f1f5f9; color: var(--primary-blue); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .opp-card h4 { font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 12px; }
+        .opp-benefit { font-size: 0.75rem; background: #eff6ff; color: #2563eb; padding: 4px 10px; border-radius: 4px; font-weight: 700; margin-top: 15px; display: inline-block; }
+
+        .roadmap-v2 { position: relative; max-width: 900px; margin: 0 auto; }
+        .roadmap-step { padding-left: 50px; position: relative; margin-bottom: 50px; }
+        .roadmap-step::before { content: ""; position: absolute; left: 0; top: 0; width: 2px; height: 100%; background: #e2e8f0; }
+        .roadmap-step:last-child::before { display: none; }
+        .roadmap-dot { position: absolute; left: -9px; top: 0; width: 20px; height: 20px; background: white; border: 4px solid var(--primary-blue); border-radius: 50%; }
+        .roadmap-step h4 { font-size: 1rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 10px; }
+        .roadmap-step .result { font-size: 0.8rem; color: #059669; font-weight: 700; margin-top: 10px; padding: 5px 12px; background: #ecfdf5; border-radius: 6px; display: inline-block; }
+
+        .faq-box { border: 1px solid var(--border-slate); border-radius: 12px; overflow: hidden; margin-bottom: 15px; }
+        .faq-title { background: #f8fafc; padding: 15px 25px; font-weight: 700; color: var(--primary-blue); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-body { padding: 20px 25px; font-size: 0.9rem; line-height: 1.6; background: white; display: none; }
+
+        .cta-box { background: #f1f5f9; padding: 60px 40px; border-radius: 20px; text-align: center; border: 1px solid var(--border-slate); }
+        .cta-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px; }
+
+        @media (max-width: 768px) {
+            .hero-cards-grid { grid-template-columns: 1fr; }
+            .uni-grid { grid-template-columns: 1fr; }
+            .heatmap-table { display: block; overflow-x: auto; }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -47,76 +203,386 @@
     </div>
 
     <main>
-        <section class="hero" style="height: 300px; background-image: url('https://picsum.photos/seed/ai_materials/1600/600');">
-            <div class="hero-overlay" style="background: rgba(0, 51, 102, 0.8);"></div>
-            <div class="container hero-content">
-                <h1>Хиймэл оюунд тулгуурласан MTRL сургалтын шинэчлэл</h1>
-                <p>AI-enabled Learning Pathway for future material engineers.</p>
-            </div>
-        </section>
-
-        <section id="ai-vision">
+        <!-- Hero Section -->
+        <section class="ai-hero">
             <div class="container">
-                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-                    <p style="font-size: 1.1rem;">
-                        Энэ хэсэг нь хэрэгжүүлэхээр төлөвлөж буй хөгжлийн чиглэл бөгөөд MTRL хөтөлбөрийг ирээдүйн инженерийн боловсролын шаардлагад нийцүүлэх зорилготой.
-                    </p>
+                <h1>Хиймэл оюунд тулгуурласан материал судлалын шинэ үеийн сургалт</h1>
+                <p class="subtitle">MTRL хөтөлбөр нь материалын бүтэц–шинж чанар–боловсруулалтын мэдлэгийг өгөгдөл, симуляци, хиймэл оюуны аргачлалтай хослуулан ирээдүйн материалын инженерүүдийг бэлтгэнэ.</p>
+                
+                <div class="hero-cards-grid">
+                    <div class="hero-mini-card">
+                        <h3>Materials Informatics</h3>
+                        <p>Материалын өгөгдөл, шинж чанарын таамаглал, материал сонголт болон дизайн.</p>
+                    </div>
+                    <div class="hero-mini-card">
+                        <h3>AI-assisted Learning</h3>
+                        <p>Хичээл, лаборатори, тайлан, төсөлд AI туслах ашиглан суралцах хурдыг нэмэгдүүлнэ.</p>
+                    </div>
+                    <div class="hero-mini-card">
+                        <h3>Digital Lab & Simulation</h3>
+                        <p>Виртуал туршилт, Python/Jupyter, материалын процессын тоон загварчлал.</p>
+                    </div>
+                </div>
+
+                <div class="cta-btns">
+                    <a href="#ai-pathway" class="btn btn-primary" style="background: var(--accent-orange);">AI сургалтын чиглэл харах</a>
+                    <a href="about.html" class="btn btn-primary" style="background: rgba(255,255,255,0.1); border: 1px solid white;">MTRL хөтөлбөртэй танилцах</a>
+                    <a href="admissions.html" class="btn btn-primary" style="background: white; color: var(--primary-blue);">Элсэлтийн мэдээлэл авах</a>
                 </div>
             </div>
         </section>
 
-        <section id="ai-blocks" style="background-color: var(--light-bg);">
+        <!-- World Top Universities -->
+        <section class="section-padding" style="background: #f8fafc;">
             <div class="container">
-                <div class="grid">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Materials Informatics</h3>
-                            <p>Материалын өгөгдлийн сан, машин сургалтын алгоритмыг ашиглан шинэ материалын шинж чанарыг урьдчилан таамаглах, дизайн хийх арга зүйд суралцана.</p>
+                <div class="section-title-box">
+                    <h2>Дэлхийн топ их сургуулиуд материал судлалд AI-г хэрхэн нэвтрүүлж байна вэ?</h2>
+                    <p>Дэлхийн тэргүүлэх материал судлал, инженерчлэлийн хөтөлбөрүүд AI-г тусдаа нэмэлт сэдэв бус, харин материалын өгөгдөл, симуляци, лабораторийн шинжилгээ, материалын дизайны үндсэн арга хэрэгсэл болгон нэвтрүүлж байна.</p>
+                </div>
+
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                    <!-- MIT -->
+                    <div class="uni-card">
+                        <h4>MIT</h4>
+                        <div class="rank-badges">
+                            <span class="rank-badge badge-wur">THE WUR #2</span>
+                            <span class="rank-badge badge-eng">Engineering =#3</span>
+                            <span class="rank-badge badge-sci">Physical Sciences #4</span>
+                        </div>
+                        <p class="uni-desc">MIT нь Applied AI for Materials Discovery, generative methods, agentic workflows, multiscale modeling зэрэг аргачлалаар материалын нээлт, хөгжүүлэлтийг хурдасгах чиглэлээр тэргүүлэх жишээ болж байна.</p>
+                    </div>
+                    <!-- Stanford -->
+                    <div class="uni-card">
+                        <h4>Stanford University</h4>
+                        <div class="rank-badges">
+                            <span class="rank-badge badge-wur">THE WUR =#5</span>
+                            <span class="rank-badge badge-eng">Engineering =#3</span>
+                            <span class="rank-badge badge-sci">Physical Sciences =#2</span>
+                        </div>
+                        <p class="uni-desc">Stanford-ийн Materials Computation, Theory & Design чиглэл нь тооцоолол, статистик, machine learning ашиглан материалын дизайн, шинжилгээг хурдасгахыг онцолдог.</p>
+                    </div>
+                    <!-- Berkeley -->
+                    <div class="uni-card">
+                        <h4>UC Berkeley</h4>
+                        <div class="rank-badges">
+                            <span class="rank-badge badge-wur">THE WUR #9</span>
+                            <span class="rank-badge badge-eng">Engineering #6</span>
+                            <span class="rank-badge badge-sci">Physical Sciences #7</span>
+                        </div>
+                        <p class="uni-desc">UC Berkeley-ийн Materials Project нь high-performance computing, machine learning, open materials database ашиглан шинэ материалын судалгааг түргэсгэх дэлхийн томоохон платформ юм.</p>
+                    </div>
+                    <!-- NUS -->
+                    <div class="uni-card">
+                        <h4>National University of Singapore</h4>
+                        <div class="rank-badges">
+                            <span class="rank-badge badge-wur">THE WUR #17</span>
+                            <span class="rank-badge badge-eng">Engineering #10</span>
+                            <span class="rank-badge badge-sci">Physical Sciences #11</span>
+                        </div>
+                        <p class="uni-desc">NUS-ийн Materials Science and Engineering хөтөлбөр нь Artificial Intelligence in MSE чиглэлээр AI, data science, materials discovery-г сургалттай холбож байна.</p>
+                    </div>
+                    <!-- Northwestern -->
+                    <div class="uni-card">
+                        <h4>Northwestern University</h4>
+                        <div class="rank-badges">
+                            <span class="rank-badge badge-wur">THE WUR #30</span>
+                            <span class="rank-badge badge-eng">Engineering #33</span>
+                            <span class="rank-badge badge-sci">Physical Sciences =#35</span>
+                        </div>
+                        <p class="uni-desc">Northwestern-ийн Materials Informatics сургалт нь Python, machine learning, AI, materials datasets, LLM, autonomous labs зэрэг сэдвийг хамардаг.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; font-size: 0.75rem; color: var(--text-muted); text-align: center;">
+                    Тайлбар: Дээрх rank нь Materials Science-ийн тусгай ranking биш бөгөөд Times Higher Education World University Rankings-ийн overall rank болон MTRL-тэй ойр Engineering, Physical Sciences subject rank юм. Source: Times Higher Education World University Rankings.
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual / Infographic Section -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-title-box">
+                    <h2>MTRL AI Vision & Learning System</h2>
+                </div>
+
+                <div class="grid" style="gap: 60px;">
+                    <!-- Timeline -->
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; color: var(--primary-blue);">Traditional Materials Science → AI-enabled Materials Engineering</h3>
+                        <div class="timeline-graphic">
+                            <div class="timeline-item"><h5>Traditional Materials Science</h5></div>
+                            <i data-lucide="chevron-right" class="timeline-arrow"></i>
+                            <div class="timeline-item"><h5>Characterization & Simulation</h5></div>
+                            <i data-lucide="chevron-right" class="timeline-arrow"></i>
+                            <div class="timeline-item active"><h5>Materials Informatics</h5></div>
+                            <i data-lucide="chevron-right" class="timeline-arrow"></i>
+                            <div class="timeline-item"><h5>AI-assisted Design</h5></div>
+                            <i data-lucide="chevron-right" class="timeline-arrow"></i>
+                            <div class="timeline-item"><h5>Autonomous Discovery</h5></div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>AI-assisted Student Learning</h3>
-                            <p>Оюутнуудад зориулсан хиймэл оюуны туслах нь хичээлийн агуулга, лабораторийн үр дүнг тайлбарлахад туслах дижитал орчин юм.</p>
+
+                    <!-- Pathway -->
+                    <div id="ai-pathway">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 25px; color: var(--primary-blue);">MTRL AI Learning Pathway</h3>
+                        <div class="pathway-step">
+                            <div class="step-num">1</div>
+                            <div class="step-content">
+                                <h4>AI literacy, data literacy</h4>
+                                <p>Материалын төрөл, бүтэц, шинж чанарын ойлголтыг өгөгдлийн талаас харах.</p>
+                                <div class="step-example">Жишээ: Материалын төрөл, бүтэц, шинж чанарын ойлголт</div>
+                            </div>
+                        </div>
+                        <div class="pathway-step">
+                            <div class="step-num">2</div>
+                            <div class="step-content">
+                                <h4>Python, Excel, өгөгдөл цэвэрлэх</h4>
+                                <p>Инженерийн өгөгдлийг графикжуулах, статистик шинжилгээ хийх суурь.</p>
+                                <div class="step-example">Жишээ: Фазын диаграмм, механик шинж чанарын өгөгдөл</div>
+                            </div>
+                        </div>
+                        <div class="pathway-step">
+                            <div class="step-num">3</div>
+                            <div class="step-content">
+                                <h4>Machine learning, property prediction</h4>
+                                <p>Өгөгдөл дээр тулгуурлан материалын шинж чанарыг таамаглах алгоритм ашиглах.</p>
+                                <div class="step-example">Жишээ: Материалын боловсруулалт ба шинж чанарын хамаарал</div>
+                            </div>
+                        </div>
+                        <div class="pathway-step">
+                            <div class="step-num">4</div>
+                            <div class="step-content">
+                                <h4>AI-assisted capstone project</h4>
+                                <p>Төгсөлтийн төсөл, судалгаанд AI аргачлалыг практикт нэвтрүүлэх.</p>
+                                <div class="step-example">Жишээ: Монголын түүхий эд, цемент, эрдэс, нано материалын төсөл</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <h3>Digital Learning & Simulation</h3>
-                            <p>Виртуал лаборатори, материалын процессийн симуляци болон дижитал сургалтын нөөцийг ашиглан практик чадварыг хөгжүүлнэ.</p>
+
+                    <!-- Heatmap -->
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 25px; color: var(--primary-blue);">MTRL хичээлүүдэд AI-г хэрхэн холбох вэ?</h3>
+                        <table class="heatmap-table">
+                            <thead>
+                                <tr>
+                                    <th>Хичээлийн нэр</th>
+                                    <th>Data analysis</th>
+                                    <th>Simulation</th>
+                                    <th>AI assistant</th>
+                                    <th>ML prediction</th>
+                                    <th>Project-based</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left; font-weight: 600;">MTRL201 Материал судлалын үндэс</td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-empty">○</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-empty">○</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; font-weight: 600;">MTRL302 Материалын боловсруулалт</td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; font-weight: 600;">MTRL304 Материалын механик шинж чанар</td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; font-weight: 600;">MTRL408 Дэвшилтэт материалууд</td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-empty">○</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left; font-weight: 600;">Нано/биоматериалын хичээлүүд</td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                    <td><span class="dot-full">●</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="margin-top: 15px; font-size: 0.8rem; color: var(--text-muted);">
+                            Тэмдэглэгээ: ● бүрэн ашиглах боломжтой | ○ эхний түвшинд ашиглах боломжтой
+                        </div>
+                    </div>
+
+                    <!-- Flowchart -->
+                    <div style="background: #f8fafc; padding: 40px; border-radius: 20px;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 30px; text-align: center; color: var(--primary-blue);">AI-assisted Laboratory Workflow</h3>
+                        <div class="flow-container">
+                            <div class="flow-box">Дээж бэлтгэх</div>
+                            <i data-lucide="arrow-down" class="flow-arrow"></i>
+                            <div class="flow-box">XRD / SEM / FTIR туршилт</div>
+                            <i data-lucide="arrow-down" class="flow-arrow"></i>
+                            <div class="flow-box">Өгөгдөл цэвэрлэх</div>
+                            <i data-lucide="arrow-down" class="flow-arrow"></i>
+                            <div class="flow-box accent">AI-assisted interpretation</div>
+                            <i data-lucide="arrow-down" class="flow-arrow"></i>
+                            <div class="flow-box">Тайлан боловсруулах</div>
+                            <i data-lucide="arrow-down" class="flow-arrow"></i>
+                            <div class="flow-box" style="background: var(--primary-blue); color: white;">Багшийн баталгаажуулалт</div>
+                        </div>
+                        <div style="margin-top: 30px; font-size: 0.85rem; line-height: 1.5; color: var(--text-muted); text-align: center; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            <strong>АНХААРУУЛГА:</strong> AI нь багшийг орлохгүй. AI нь өгөгдөл ойлгох, тайлан боловсруулах, таамаглал гаргах туслах хэрэгсэл бөгөөд эцсийн дүгнэлт, баталгаажуулалт нь багш, судлаачийн хяналтаар хийгдэнэ.
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="roadmap">
+        <!-- Opportunities Section -->
+        <section class="section-padding" style="background: #f8fafc;">
             <div class="container">
-                <div class="section-title">
-                    <h2>Хөгжлийн төлөвлөгөө (Roadmap)</h2>
+                <div class="section-title-box">
+                    <h2>MTRL хөтөлбөр дээр хэрэгжих боломжууд</h2>
                 </div>
+
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                    <!-- Opportunity 1 -->
+                    <div class="opp-card">
+                        <div class="opp-icon"><i data-lucide="message-square"></i></div>
+                        <h4>AI-assisted хичээлийн туслах</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-main);">Оюутан хичээлийн сэдэв, лабораторийн үр дүн, материалын шинж чанарын ойлголтыг баталгаатай эх сурвалж дээр тулгуурлан асууж суралцах chatbot ашиглана.</p>
+                        <div class="opp-benefit">Оюутанд өгөх үр ашиг: Өөрийн хурдаар суралцах</div>
+                    </div>
+                    <!-- Opportunity 2 -->
+                    <div class="opp-card">
+                        <div class="opp-icon"><i data-lucide="database"></i></div>
+                        <h4>Materials Data Mini-lab</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-main);">Оюутнууд материалын нягт, хатуулаг, дулаан дамжуулалт, механик шинж зэрэг өгөгдлийг цуглуулж, жижиг өгөгдлийн сан үүсгэнэ.</p>
+                        <div class="opp-benefit">Оюутанд өгөх үр ашиг: Өгөгдөл дээр суурилсан ойлголт</div>
+                    </div>
+                    <!-- Opportunity 3 -->
+                    <div class="opp-card">
+                        <div class="opp-icon"><i data-lucide="code"></i></div>
+                        <h4>Python / Jupyter сургалт</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-main);">Материалын өгөгдлийг графикжуулах, regression хийх, шинж чанар таамаглах суурь дадлага хийнэ.</p>
+                        <div class="opp-benefit">Оюутанд өгөх үр ашиг: Инженерийн өгөгдөл боловсруулах чадвар</div>
+                    </div>
+                    <!-- Opportunity 4 -->
+                    <div class="opp-card">
+                        <div class="opp-icon"><i data-lucide="file-text"></i></div>
+                        <h4>AI-assisted laboratory report</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-main);">AI ашиглан тайлангийн бүтэц, график тайлбар, эх сурвалжийн эмхэтгэл хийх боловч эцсийн дүгнэлтийг оюутан өөрөө гаргана.</p>
+                        <div class="opp-benefit">Оюутанд өгөх үр ашиг: Тайлан бичих чанар сайжрах</div>
+                    </div>
+                    <!-- Opportunity 5 -->
+                    <div class="opp-card">
+                        <div class="opp-icon"><i data-lucide="microscope"></i></div>
+                        <h4>Монголын түүхий эдэд суурилсан төсөл</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-main);">Зэс, нүүрс, цемент, эрдэс, газрын ховор элемент, барилгын материалын өгөгдөл дээр AI-assisted судалгааны төсөл хийнэ.</p>
+                        <div class="opp-benefit">Оюутанд өгөх үр ашиг: Бодит үйлдвэрлэлийн асуудал шийдвэрлэх</div>
+                    </div>
+                    <!-- Opportunity 6 -->
+                    <div class="opp-card">
+                        <div class="opp-icon"><i data-lucide="layout"></i></div>
+                        <h4>Симуляци ба виртуал лаборатори</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-main);">Материалын боловсруулалт, фазын диаграмм, керамик/металл/полимер процессын виртуал туршилт хийнэ.</p>
+                        <div class="opp-benefit">Оюутанд өгөх үр ашиг: Процессын зарчмыг гүнзгий ойлгох</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="section-title-box">
+                    <h2>AI-enabled MTRL сургалтыг хэрэгжүүлэх үе шат</h2>
+                </div>
+
+                <div class="roadmap-v2">
+                    <div class="roadmap-step">
+                        <div class="roadmap-dot"></div>
+                        <h4>I үе шат: Суурь бэлтгэл ба бодлого</h4>
+                        <p style="font-size: 0.9rem;">AI сургалтын бодлого боловсруулах, MTRL chatbot-ийн эхний хувилбар гаргах, хичээлийн нөөцийг холбох.</p>
+                        <span class="result">Хүрэх үр дүн: AI туслахтай болно</span>
+                    </div>
+                    <div class="roadmap-step">
+                        <div class="roadmap-dot"></div>
+                        <h4>II үе шат: Хичээлд турших</h4>
+                        <p style="font-size: 0.9rem;">MTRL201, MTRL302 хичээл дээр AI-assisted assignment турших, үнэлгээний зарчмыг шинэчлэх.</p>
+                        <span class="result">Хүрэх үр дүн: AI-assisted learning pilot хэрэгжинэ</span>
+                    </div>
+                    <div class="roadmap-step">
+                        <div class="roadmap-dot"></div>
+                        <h4>III үе шат: Өгөгдөлд суурилсан сургалт</h4>
+                        <p style="font-size: 0.9rem;">Materials Data Mini-lab үүсгэх, Python/Jupyter ашиглан материалын өгөгдөл дээр ажиллаж сурах.</p>
+                        <span class="result">Хүрэх үр дүн: Өгөгдөл шинжилгээ, таамаглал хийх чадвартай болно</span>
+                    </div>
+                    <div class="roadmap-step">
+                        <div class="roadmap-dot"></div>
+                        <h4>IV үе шат: Төсөл ба лабораторийн хэрэглээ</h4>
+                        <p style="font-size: 0.9rem;">AI-assisted capstone project хэрэгжүүлэх, industry problem-based төслүүдийг эхлүүлэх.</p>
+                        <span class="result">Хүрэх үр дүн: Төгсөлтийн төсөлд AI хэрэглээ нэвтэрнэ</span>
+                    </div>
+                    <div class="roadmap-step">
+                        <div class="roadmap-dot"></div>
+                        <h4>V үе шат: Судалгаа–сургалт–үйлдвэрлэлийн экосистем</h4>
+                        <p style="font-size: 0.9rem;">Судалгаа, сургалт, үйлдвэрлэлийн AI экосистем бүрдүүлж, MTRL-ийн AI-enabled materials education брэндийг хөгжүүлнэ.</p>
+                        <span class="result">Хүрэх үр дүн: MTRL хөтөлбөрийн ялгарах чиглэл бүрдэнэ</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section-padding" style="background: #f8fafc;">
+            <div class="container">
+                <div class="section-title-box">
+                    <h2>Түгээмэл асуулт</h2>
+                </div>
+                
                 <div style="max-width: 800px; margin: 0 auto;">
-                    <div style="border-left: 2px solid var(--primary-blue); padding-left: 20px; position: relative;">
-                        <div style="margin-bottom: 30px;">
-                            <h4 style="color: var(--primary-blue);">Phase 1: Дижитал мэдээллийн сан</h4>
-                            <p>Вебсайт, AI chatbot болон хөтөлбөрийн дижитал мэдээллийг системчлэх.</p>
-                        </div>
-                        <div style="margin-bottom: 30px;">
-                            <h4 style="color: var(--primary-blue);">Phase 2: Хичээлийн түвшний дижитал нөөц</h4>
-                            <p>Хичээл бүрээр дижитал сургалтын материалуудыг AI-тай уялдуулан бэлтгэх.</p>
-                        </div>
-                        <div style="margin-bottom: 30px;">
-                            <h4 style="color: var(--primary-blue);">Phase 3: AI-т суурилсан төсөлт сургалт</h4>
-                            <p>Хиймэл оюуны тусламжтайгаар даалгавар, төсөлд суурилсан сургалтыг нэвтрүүлэх.</p>
-                        </div>
-                        <div style="margin-bottom: 30px;">
-                            <h4 style="color: var(--primary-blue);">Phase 4: Материалын өгөгдлийн анализ</h4>
-                            <p>Материалын өгөгдлийн анализ болон симуляцийн модулиудыг сургалтад нэгтгэх.</p>
-                        </div>
-                        <div>
-                            <h4 style="color: var(--primary-blue);">Phase 5: Судалгаанд суурилсан AI экосистем</h4>
-                            <p>Судалгаа ба сургалт хосолсон AI экосистемийг бүрэн хэрэгжүүлэх.</p>
-                        </div>
+                    <div class="faq-box">
+                        <div class="faq-title">AI багшиг орлох уу? <i data-lucide="plus"></i></div>
+                        <div class="faq-body">Үгүй. AI нь суралцах, тайлбарлах, өгөгдөл боловсруулах туслах хэрэгсэл байна. Эцсийн үнэлгээ, зөвлөмж, баталгаажуулалт багшийн хяналтаар хийгдэнэ.</div>
+                    </div>
+                    <div class="faq-box">
+                        <div class="faq-title">Оюутан заавал код бичиж сурах уу? <i data-lucide="plus"></i></div>
+                        <div class="faq-body">Суурь түвшний Python/Jupyter, өгөгдөл графикжуулах, тооцоолол хийх чадвар эзэмшинэ. Энэ нь материалын инженерийн өгөгдөл боловсруулах чадварыг нэмэгдүүлнэ.</div>
+                    </div>
+                    <div class="faq-box">
+                        <div class="faq-title">Лабораторийн ажилд AI ашиглах уу? <i data-lucide="plus"></i></div>
+                        <div class="faq-body">Тийм. Туршилтын өгөгдлийг тайлбарлах, график боловсруулах, тайлангийн бүтэц сайжруулахад AI ашиглаж болно. Гэхдээ дүгнэлтийг оюутан өөрөө боловсруулж, багш баталгаажуулна.</div>
+                    </div>
+                    <div class="faq-box">
+                        <div class="faq-title">Ямар төрлийн төсөл хийх вэ? <i data-lucide="plus"></i></div>
+                        <div class="faq-body">Монголын эрдэс түүхий эд, цемент, барилгын материал, нано материал, эрчим хүчний материал, механик шинж чанарын өгөгдөл зэрэг бодит асуудалд суурилсан төслүүд хийнэ.</div>
+                    </div>
+                    <div class="faq-box">
+                        <div class="faq-title">AI ашиглахдаа академик ёс зүйг хэрхэн мөрдөх вэ? <i data-lucide="plus"></i></div>
+                        <div class="faq-body">AI ашигласан хэсгээ ил тод тэмдэглэх, эх сурвалжаа зөв ишлэх, өгөгдөл болон дүгнэлтийг багшийн шаардлагын дагуу баталгаажуулах зарчмыг мөрдөнө.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="cta-box">
+                    <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 20px;">Ирээдүйн материалын инженер болох эхний алхмаа MTRL хөтөлбөрөөс эхлүүлээрэй</h2>
+                    <div class="cta-btns">
+                        <a href="admissions.html" class="btn btn-primary" style="background: var(--primary-blue); padding: 15px 30px;">Элсэлтийн мэдээлэл авах</a>
+                        <a href="contact.html" class="btn btn-primary" style="background: var(--accent-orange); padding: 15px 30px;">Хөтөлбөрийн багштай холбогдох</a>
+                        <a href="index.html" class="btn btn-primary" style="background: #e2e8f0; color: #475569; padding: 15px 30px;">MTRL хөтөлбөрийн үндсэн хуудас руу буцах</a>
                     </div>
                 </div>
             </div>
@@ -132,8 +598,73 @@
         </div>
     </footer>
 
+    <!-- Chatbot UI -->
+    <div class="chatbot-trigger" id="chatbot_trigger">
+        <div class="trigger-icon">
+            <div class="online-dot"></div>
+            <i data-lucide="monitor"></i>
+        </div>
+        <div class="trigger-text">
+            <span class="trigger-label">MTRL AI Асуулт Хариулт</span>
+            <span class="trigger-title">AI Туслахтай чатлах</span>
+        </div>
+    </div>
+
+    <div class="chat-popup" id="chat_popup">
+        <div class="chat-popup-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="bot"></i>
+                <div>
+                    <h4 style="margin: 0; font-size: 0.85rem;">MTRL AI туслах</h4>
+                    <p style="font-size: 0.6rem; margin: 0; opacity: 0.8;">Албан ёсны мэдээлэл</p>
+                </div>
+            </div>
+            <button id="close_chat" style="background: none; border: none; color: white; cursor: pointer;">
+                <i data-lucide="x" style="width: 16px;"></i>
+            </button>
+        </div>
+        <div class="chat-popup-messages" id="chat_popup_messages">
+            <div class="message-wrapper bot-wrapper">
+                <div class="avatar-container">
+                    <div class="bot-avatar"><i data-lucide="bot"></i></div>
+                    <span class="avatar-name">MTRL AI</span>
+                </div>
+                <div class="message bot-message">Сайн байна уу? Би MTRL хөтөлбөрийн AI туслах байна. Танд асуух зүйл байна уу?</div>
+            </div>
+        </div>
+        <div class="chat-popup-input">
+            <input type="text" id="chat_popup_input" placeholder="Асуултаа энд бичнэ үү...">
+            <button id="send_chat_btn"><i data-lucide="send" style="width: 16px;"></i></button>
+        </div>
+    </div>
+
+    <script src="assets/js/nav.js"></script>
+    <script src="assets/js/chatbot.js"></script>
     <script>
-        lucide.createIcons();
+        // FAQ Toggle
+        document.querySelectorAll('.faq-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const body = title.nextElementSibling;
+                const icon = title.querySelector('i[data-lucide]');
+                const isOpen = body.style.display === 'block';
+                
+                // Close all others
+                document.querySelectorAll('.faq-body').forEach(b => b.style.display = 'none');
+                document.querySelectorAll('.faq-title i[data-lucide]').forEach(i => {
+                    i.setAttribute('data-lucide', 'plus');
+                });
+                
+                if (!isOpen) {
+                    body.style.display = 'block';
+                    icon.setAttribute('data-lucide', 'minus');
+                } else {
+                    body.style.display = 'none';
+                    icon.setAttribute('data-lucide', 'plus');
+                }
+                
+                lucide.createIcons();
+            });
+        });
     </script>
 </body>
 </html>

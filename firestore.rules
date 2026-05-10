@@ -82,5 +82,15 @@ service cloud.firestore {
         return data.content is string && data.content.size() <= 10000;
       }
     }
+
+    // Stats - Public Get & Increment Views
+    match /stats/{docId} {
+      allow get: if true;
+      allow create: if isAdmin() || (docId == 'site' && incoming().views == 1);
+      allow update: if docId == 'site' && (
+        (incoming().diff(existing()).affectedKeys().hasOnly(['views']) && (existing().views == null || incoming().views == existing().views + 1))
+        || isAdmin()
+      );
+    }
   }
 }

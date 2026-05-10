@@ -2,8 +2,9 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import axios from 'axios';
 import dotenv from 'dotenv';
-import { GoogleGenAI } from '@google/genai';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -16,44 +17,65 @@ async function startServer() {
 
   app.use(express.json());
 
-  // AI Chatbot Endpoint
+  // CORS Configuration
+  app.use(cors({
+    origin: ['https://set.num.edu.mn', 'http://localhost:3000', /--num\.edu\.mn$/],
+    methods: ['POST', 'GET', 'OPTIONS'],
+    credentials: true
+  }));
+
+  // AI Chatbot Endpoint (OpenRouter)
   app.post('/api/chat', async (req, res) => {
     const { message } = req.body;
 
-    if (!process.env.GEMINI_API_KEY) {
-      return res.status(500).json({ reply: "API key is not configured." });
+    if (!message || message.trim() === "") {
+        return res.status(400).json({ reply: "Мэдээлэл хоосон байна." });
+    }
+
+    const apiKey = process.env.OPENROUTER_API_KEY;
+
+    if (!apiKey || apiKey === "YOUR_OPENROUTER_API_KEY_HERE") {
+      console.error("OPENROUTER_API_KEY is missing or not configured.");
+      return res.status(500).json({ 
+        reply: "Одоогоор AI туслахтай холбогдох боломжгүй байна. Та дараа дахин оролдоно уу." 
+      });
     }
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      console.log(`Chat request received: "${message.substring(0, 50)}${message.length > 50 ? '...' : ''}"`);
       
-      const systemPrompt = `You are MTRL AI туслах, the official programme information assistant for the Materials Science and Engineering programme at the School of Engineering and Technology, National University of Mongolia. 
-      Answer only using the provided knowledge context about MTRL programme. 
-      Use clear Khalkha Mongolian. Be concise but helpful. 
-      If you don't know the answer based on the context, say: "Энэ мэдээлэл одоогоор баталгаажсан эх сурвалжид байхгүй байна. Та хөтөлбөрийн зохицуулагчтай холбогдоно уу."
-      Do not invent admission scores, dates, tuition fees, or official policy.`;
-
-      const context = `
-      MTRL programme: Materials Science and Engineering at NUM (Mongolian University of Science and Technology -> Mongol Ulsyn Ikh Surguuli).
-      School: School of Engineering and Technology (SET).
-      Credits: 121 credits, 4 years.
-      Degree: Bachelor of Engineering (B.Eng).
-      Code: D072201.
-      Vision: AI-enabled Materials Science education.
-      Key faculty: Д. Хасбаатар (Solid state chemistry), Б. Мөнхцэцэг (Rare earth elements), Э. Энхтөр (Solar cells).
-      Labs: Solid state physics and chemistry, Mechanical testing, Simulation tools (Aspentech, Mathlab).
-      Admissions: Core subjects are Math, Chemistry, Physics. Minimum score 480.
-      `;
-
-      const response = await ai.models.generateContent({
-        model: "gemini-3-flash-preview",
-        contents: `${systemPrompt}\n\nContext:\n${context}\n\nUser Question: ${message}`
+      const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+        model: "openrouter/free",
+        messages: [
+          { 
+            role: "system", 
+            content: "Та МУИС-ийн ИТС-ийн Материал судлал, инженерчлэл MTRL хөтөлбөрийн AI туслах. ЗӨВХӨН Монгол хэлээр хариул. Өөр хэлээр (Орос, Англи гэх мэт) хариулж болохгүй. Товч, үнэн зөв, элсэгч болон оюутанд ойлгомжтой хариул." 
+          },
+          { role: "user", content: message }
+        ]
+      }, {
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": process.env.APP_URL || "https://github.com/mtrl-num",
+          "X-Title": "MTRL NUM Chatbot"
+        },
+        timeout: 25000 
       });
 
-      res.json({ reply: response.text });
-    } catch (error) {
-      console.error("Chatbot error:", error);
-      res.status(500).json({ reply: "Уучлаарай, хариу авахад алдаа гарлаа." });
+      const reply = response.data.choices[0]?.message?.content || "Уучлаарай, хариу авахад алдаа гарлаа.";
+      console.log("Chatbot response sent successfully.");
+      res.json({ reply });
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+          const status = error.response?.status;
+          const errorData = error.response?.data;
+          
+          console.error(`OpenRouter API Error [${status}]:`, JSON.stringify(errorData, null, 2) || error.message);
+      } else {
+          console.error("Chatbot server error:", error);
+      }
+      res.status(500).json({ reply: "Одоогоор AI туслахтай холбогдох боломжгүй байна. Та дараа дахин оролдоно уу." });
     }
   });
 

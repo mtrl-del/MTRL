@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Материал судлал, инженерчлэл (MTRL) - МУИС</title>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260508-1">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260510-5">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Site counter style */
+        .site-counter {
+            font-size: 13px;
+            opacity: 0.75;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: inherit;
+            width: 100%;
+        }
+        .site-counter strong { font-weight: 700; color: #fb923c; }
+    </style>
 </head>
 <body>
     <header>
@@ -293,6 +309,10 @@
             <div class="footer-links">
                 <a href="admin.html" style="opacity: 0.5; color: inherit; text-decoration: none;">Админ</a>
             </div>
+            <div class="site-counter" aria-label="Сайтын нийт хандалт">
+                <span>Сайтыг үзсэн тоо:</span>
+                <strong id="visitorCount">...</strong>
+            </div>
         </div>
     </footer>
 
@@ -304,6 +324,35 @@
         <div class="trigger-text">
             <span class="trigger-label">MTRL AI Асуулт Хариулт</span>
             <span class="trigger-title">AI Туслахтай чатлах</span>
+        </div>
+    </div>
+
+    <!-- Chatbot Popup -->
+    <div class="chat-popup" id="chat_popup">
+        <div class="chat-popup-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="bot"></i>
+                <div>
+                    <h4 style="margin: 0; font-size: 0.85rem;">MTRL AI туслах</h4>
+                    <p style="font-size: 0.6rem; margin: 0; opacity: 0.8;">Албан ёсны мэдээлэл</p>
+                </div>
+            </div>
+            <button id="close_chat" style="background: none; border: none; color: white; cursor: pointer;">
+                <i data-lucide="x" style="width: 16px;"></i>
+            </button>
+        </div>
+        <div class="chat-popup-messages" id="chat_popup_messages">
+            <div class="message-wrapper bot-wrapper">
+                <div class="avatar-container">
+                    <div class="bot-avatar"><i data-lucide="bot"></i></div>
+                    <span class="avatar-name">MTRL AI</span>
+                </div>
+                <div class="message bot-message">Сайн байна уу? Би MTRL хөтөлбөрийн AI туслах байна. Танд асуух зүйл байна уу?</div>
+            </div>
+        </div>
+        <div class="chat-popup-input">
+            <input type="text" id="chat_popup_input" placeholder="Асуултаа энд бичнэ үү...">
+            <button id="send_chat_btn"><i data-lucide="send" style="width: 16px;"></i></button>
         </div>
     </div>
 
@@ -400,12 +449,9 @@
         </div>
     </div>
 
+    <script src="assets/js/nav.js"></script>
+    <script src="assets/js/chatbot.js"></script>
     <script>
-        lucide.createIcons();
-        document.getElementById('chatbot_trigger').addEventListener('click', function() {
-            window.location.href = 'chatbot.html';
-        });
-
         // Modal Logic
         const modal = document.getElementById('news_modal');
         const aiNewsCard = document.getElementById('ai_news_card');
@@ -665,27 +711,66 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                modal.classList.remove('active');
-                summaryModal.classList.remove('active');
-                navLinks.classList.remove('active');
+                if (typeof modal !== 'undefined' && modal) modal.classList.remove('active');
+                if (typeof summaryModal !== 'undefined' && summaryModal) summaryModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         });
+    </script>
+    
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-        // Mobile Menu Logic
-        const menuToggle = document.getElementById('menu_toggle');
-        const navLinks = document.getElementById('nav_links');
+        const firebaseConfig = {
+            projectId: "ai-studio-applet-webapp-5eac4",
+            appId: "1:415638094814:web:82044a28996880f463934f",
+            apiKey: "AIzaSyADygYO5UO6lIgoiXlAmo5oKBYAW6Mvkqg",
+            authDomain: "ai-studio-applet-webapp-5eac4.firebaseapp.com",
+            firestoreDatabaseId: "ai-studio-0455b3b9-8b1a-4b7a-9c3d-02dbde5c5da7",
+            storageBucket: "ai-studio-applet-webapp-5eac4.firebasestorage.app",
+            messagingSenderId: "415638094814"
+        };
 
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navLinks.classList.toggle('active');
-        });
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
 
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                navLinks.classList.remove('active');
+        async function updateCounter() {
+            const counterEl = document.getElementById('visitorCount');
+            if (!counterEl) return;
+            
+            const statsDoc = doc(db, 'stats', 'site');
+            
+            try {
+                // Try to update/increment
+                await updateDoc(statsDoc, {
+                    views: increment(1)
+                });
+                
+                // Fetch the new value
+                const snapshot = await getDoc(statsDoc);
+                if (snapshot.exists()) {
+                    const count = snapshot.data().views || 0;
+                    counterEl.textContent = count.toLocaleString('en-US');
+                }
+            } catch (error) {
+                console.warn("Counter operation failed, attempting initialization:", error.message);
+                // If doc doesn't exist, create it
+                if (error.code === 'not-found' || error.message.includes('not found')) {
+                    try {
+                        await setDoc(statsDoc, { views: 1 }, { merge: true });
+                        counterEl.textContent = "1";
+                    } catch (e) {
+                        console.error("Initialization error:", e);
+                        counterEl.textContent = "—";
+                    }
+                } else {
+                    counterEl.textContent = "—";
+                }
             }
-        });
+        }
+
+        updateCounter();
     </script>
 </body>
 </html>

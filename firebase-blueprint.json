@@ -107,9 +107,21 @@
         "isPublished": { "type": "boolean" },
         "updatedAt": { "type": "string", "format": "date-time" }
       }
+    },
+    "stats": {
+      "title": "Site Statistics",
+      "description": "View counts and other metrics",
+      "type": "object",
+      "properties": {
+        "views": { "type": "number" }
+      }
     }
   },
   "firestore": {
+    "stats": {
+      "schema": "stats",
+      "description": "Collection for site statistics"
+    },
     "programInfo": {
       "schema": "programInfo",
       "description": "General programme information"

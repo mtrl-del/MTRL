@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мэдээ - MTRL МУИС</title>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260508-1">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260510-4">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,9 +82,50 @@
         </div>
     </footer>
 
+    <div class="chatbot-trigger" id="chatbot_trigger">
+        <div class="trigger-icon">
+            <div class="online-dot"></div>
+            <i data-lucide="monitor"></i>
+        </div>
+        <div class="trigger-text">
+            <span class="trigger-label">MTRL AI Асуулт Хариулт</span>
+            <span class="trigger-title">AI Туслахтай чатлах</span>
+        </div>
+    </div>
+
+    <!-- Chatbot Popup -->
+    <div class="chat-popup" id="chat_popup">
+        <div class="chat-popup-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="bot"></i>
+                <div>
+                    <h4 style="margin: 0; font-size: 0.85rem;">MTRL AI туслах</h4>
+                    <p style="font-size: 0.6rem; margin: 0; opacity: 0.8;">Албан ёсны мэдээлэл</p>
+                </div>
+            </div>
+            <button id="close_chat" style="background: none; border: none; color: white; cursor: pointer;">
+                <i data-lucide="x" style="width: 16px;"></i>
+            </button>
+        </div>
+        <div class="chat-popup-messages" id="chat_popup_messages">
+            <div class="message-wrapper bot-wrapper">
+                <div class="avatar-container">
+                    <div class="bot-avatar"><i data-lucide="bot"></i></div>
+                    <span class="avatar-name">MTRL AI</span>
+                </div>
+                <div class="message bot-message">Сайн байна уу? Би MTRL хөтөлбөрийн AI туслах байна. Танд асуух зүйл байна уу?</div>
+            </div>
+        </div>
+        <div class="chat-popup-input">
+            <input type="text" id="chat_popup_input" placeholder="Асуултаа энд бичнэ үү...">
+            <button id="send_chat_btn"><i data-lucide="send" style="width: 16px;"></i></button>
+        </div>
+    </div>
+
+    <script src="assets/js/nav.js"></script>
+    <script src="assets/js/chatbot.js"></script>
     <script>
         lucide.createIcons();
     </script>
-    <script src="assets/js/nav.js"></script>
 </body>
 </html>
